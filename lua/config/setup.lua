@@ -6,13 +6,11 @@ vim.g.maplocalleader = ' '
 -- NOTE: You can change these options as you wish!
 
 vim.o.hlsearch = false
+vim.o.incsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = true
-
--- Enable mouse mode
--- vim.o.mouse = 'a'
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -33,7 +31,7 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 250
+vim.o.updatetime = 150
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
@@ -41,3 +39,6 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+-- Don't scroll down more than 8 lines when scrolling off the screen
+vim.o.scrolloff = 8
