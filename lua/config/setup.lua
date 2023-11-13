@@ -8,7 +8,7 @@ vim.g.maplocalleader = ' '
 vim.o.hlsearch = false
 vim.o.incsearch = true
 
--- Make line numbers default
+-- Make line numbers and relative numbering default
 vim.wo.number = true
 vim.wo.relativenumber = true
 
