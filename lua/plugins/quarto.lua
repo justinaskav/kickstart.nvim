@@ -24,6 +24,27 @@ return {
       },
     },
   },
+  {
+    "lukas-reineke/headlines.nvim",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("headlines").setup({
+        markdown = {
+          headline_highlights = false,
+        },
+        quarto = {
+          query = vim.treesitter.query.parse(
+            "markdown",
+            [[
+                (fenced_code_block) @codeblock
+            ]]
+          ),
+          codeblock_highlight = "CodeBlock",
+          treesitter_language = "markdown",
+        },
+      })
+    end
+  },
   -- send code from python/r/qmd documets to a terminal or REPL
   -- like ipython, R, bash
   {

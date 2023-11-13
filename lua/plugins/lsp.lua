@@ -74,18 +74,58 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
     --
     --  If you want to override the default filetypes that your language server will attach to you can
     --  define the property 'filetypes' to the map in question.
+    local lua_plugin_paths = {}
+
     local servers = {
-      -- pyright = {},
-      -- rust_analyzer = {},
+      pyright = {
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = false,
+            diagnosticMode = "openFilesOnly"
+          }
+        }
+      },
+      bashls = {
+        filetypes = { 'sh', 'bash', 'zsh' }
+      },
+      julials = {},
+      rust_analyzer = {},
       tsserver = {},
       astro = { filetypes = { 'astro' } },
       volar = { filetypes = { 'vue' } },
-      marksman = {},
+      marksman = { "markdown", "quarto" },
       html = { filetypes = { 'html', 'twig', 'hbs' } },
       cssls = { filetypes = { 'css', 'scss', 'less', 'sass' } },
-
+      intelephense = {},
+      yamlls = {
+        yaml = {
+          schemas = {
+            -- add custom schemas here
+            -- e.g.
+            ["https://raw.githubusercontent.com/hits-mbm-dev/kimmdy/main/src/kimmdy/kimmdy-yaml-schema.json"] =
+            "kimmdy.yml",
+          }
+        }
+      },
+      r_language_server = {
+        lsp = {
+          rich_documentation = false,
+        }
+      },
       lua_ls = {
         Lua = {
+          completion = {
+            callSnippet = "Replace",
+          },
+          runtime = {
+            version = "LuaJIT",
+            plugin = lua_plugin_paths,
+          },
+          diagnostics = {
+            globals = { "vim", "quarto", "pandoc", "io", "string", "print", "require", "table" },
+            disable = { "trailing-space" },
+          },
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
         },

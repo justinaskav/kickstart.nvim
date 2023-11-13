@@ -11,8 +11,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Move selected line / block of text in visual mode
 vim.keymap.set('v', "J", ":m '>+1<CR>gv=gv", { silent = true })
@@ -22,9 +22,16 @@ vim.keymap.set('v', "K", ":m '<-2<CR>gv=gv", { silent = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Scroll down and center' })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll up and center' })
 
+-- Quarto Keymaps
+vim.keymap.set("n", "<leader>qp", ":QuartoPreview<CR>", { desc = 'Preview Quarto document' })
+vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Send current cell to terminal' })
+vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Send selected region to terminal' })
+
+local wk = require("which-key")
+
 -- document existing key chains
-require('which-key').register {
-  ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
+wk.register {
+  -- ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
   -- ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
@@ -32,3 +39,15 @@ require('which-key').register {
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   -- ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }
+
+wk.register({
+  ['<leader>c'] = {
+    name = "[C]ode",
+    c = { ":SlimeConfig<cr>", "slime config" },
+    n = { ":split term://$SHELL<cr>", "new terminal" },
+    r = { ":split term://R<cr>", "new R terminal" },
+    p = { ":split term://python<cr>", "new python terminal" },
+    i = { ":split term://ipython<cr>", "new ipython terminal" },
+    j = { ":split term://julia<cr>", "new julia terminal" },
+  },
+})
