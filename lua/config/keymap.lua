@@ -37,17 +37,18 @@ wk.register {
   -- ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+  ['<leader>v'] = { name = '[V]im', _ = 'which_key_ignore' },
   -- ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }
 
 wk.register({
   ['<leader>c'] = {
     name = "[C]ode",
-    c = { ":SlimeConfig<cr>", "slime config" },
-    n = { ":split term://$SHELL<cr>", "new terminal" },
-    r = { ":split term://R<cr>", "new R terminal" },
-    p = { ":split term://python<cr>", "new python terminal" },
-    i = { ":split term://ipython<cr>", "new ipython terminal" },
-    j = { ":split term://julia<cr>", "new julia terminal" },
+    c = { ":SlimeConfig<cr>", "[C]onfig Slime" },
+    t = { ":split term://$SHELL<cr>", "New [T]erminal" },
+    r = { ":split term://R<cr>", "New [R] Terminal" },
+    p = { ":split term://python<cr>", "New [P]ython Terminal" },
+    i = { ":split term://ipython<cr>", "New [I]Python Terminal" },
+    j = { ":split term://julia<cr>", "New [J]ulia Terminal" },
   },
 })
