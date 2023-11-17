@@ -109,10 +109,12 @@ return {
         end
       end
 
+      vim.g.slime_no_mappings = 1
+
       require("which-key").register({
-        ["<leader>cm"] = { mark_terminal, "mark terminal" },
-        ["<leader>cs"] = { set_terminal, "set terminal" },
-        ["<leader>ct"] = { toggle_slime_tmux_nvim, "toggle tmux/nvim terminal" },
+        ["<leader>cm"] = { mark_terminal, "[M]ark terminal" },
+        ["<leader>cs"] = { set_terminal, "[S]et terminal" },
+        -- ["<leader>ct"] = { toggle_slime_tmux_nvim, "[T]oggle tmux/nvim terminal" },
       })
     end,
   },
@@ -122,10 +124,11 @@ return {
   { "dfendr/clipboard-image.nvim" },
 
   -- preview equations
-  {
-    "jbyuki/nabla.nvim",
-    keys = {
-      { "<leader>ee", ':lua require"nabla".toggle_virt()<cr>', "Toggle equations" },
-      { "<leader>eh", ':lua require"nabla".popup()<cr>',       "Hover equation" },
-    },
-  }, }
+  -- {
+  --  "jbyuki/nabla.nvim",
+  --  keys = {
+  --    { "<leader>ee", ':lua require"nabla".toggle_virt()<cr>', "Toggle equations" },
+  --    { "<leader>eh", ':lua require"nabla".popup()<cr>',       "Hover equation" },
+  --  },
+  --},
+}

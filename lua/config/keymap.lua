@@ -23,26 +23,14 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Scroll down and center' })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll up and center' })
 
 -- Quarto Keymaps
-vim.keymap.set("n", "<leader>qp", ":QuartoPreview<CR>", { desc = 'Preview Quarto document' })
-vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Send current cell to terminal' })
-vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Send selected region to terminal' })
+vim.keymap.set("n", "<leader>qp", ":QuartoPreview<CR>", { desc = '[P]review Quarto document' })
+vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Slime: Send current cell to terminal' })
+vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Slime: Send selected region to terminal' })
 
 local wk = require("which-key")
 
--- document existing key chains
-wk.register {
-  -- ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-  ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  -- ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
-  ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  ['<leader>v'] = { name = '[V]im', _ = 'which_key_ignore' },
-  -- ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-}
-
 wk.register({
-  ['<leader>c'] = {
+  ['c'] = {
     name = "[C]ode",
     c = { ":SlimeConfig<cr>", "[C]onfig Slime" },
     t = { ":split term://$SHELL<cr>", "New [T]erminal" },
@@ -51,4 +39,30 @@ wk.register({
     i = { ":split term://ipython<cr>", "New [I]Python Terminal" },
     j = { ":split term://julia<cr>", "New [J]ulia Terminal" },
   },
-})
+  ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+  ['g'] = { name = '[G]it', _ = 'which_key_ignore' },
+  -- ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
+  ['l'] = { name = '[L]aravel', _ = 'which_key_ignore' },
+  ['q'] = { name = '[Q]uarto', _ = 'which_key_ignore' },
+  ['r'] = { name = '[R]ename', _ = 'which_key_ignore' },
+  ['s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+  ['v'] = { name = '[V]im', _ = 'which_key_ignore' },
+  -- ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+}, { prefix = '<leader>' })
+
+-- For window navigation
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to bottom window' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to top window' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+
+-- Split window
+
+vim.keymap.set('n', '<C-H>', ':leftabove vnew<CR>', { desc = 'Split window left' })
+vim.keymap.set('n', '<C-J>', ':belowright new<CR>', { desc = 'Split window down' })
+vim.keymap.set('n', '<C-K>', ':aboveleft new<CR>', { desc = 'Split window up' })
+vim.keymap.set('n', '<C-L>', ':rightbelow vnew<CR>', { desc = 'Split window right' })
+
+-- For buffer navigation
+vim.keymap.set('n', '<TAB>', ':bnext<CR>', { desc = 'Move to next buffer' })
+vim.keymap.set('n', '<S-TAB>', ':bprevious<CR>', { desc = 'Move to previous buffer' })
