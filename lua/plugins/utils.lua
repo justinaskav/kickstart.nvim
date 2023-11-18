@@ -2,7 +2,13 @@ return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   -- "gc" to comment visual regions/lines
-  'numToStr/Comment.nvim',
+  {
+    'numToStr/Comment.nvim',
+    lazy = false,
+    config = function()
+      require('Comment').setup()
+    end
+  },
   {
     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',

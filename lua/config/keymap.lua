@@ -58,10 +58,10 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 
 -- Split window
 
-vim.keymap.set('n', '<C-H>', ':leftabove vnew<CR>', { desc = 'Split window left' })
-vim.keymap.set('n', '<C-J>', ':belowright new<CR>', { desc = 'Split window down' })
-vim.keymap.set('n', '<C-K>', ':aboveleft new<CR>', { desc = 'Split window up' })
-vim.keymap.set('n', '<C-L>', ':rightbelow vnew<CR>', { desc = 'Split window right' })
+-- vim.keymap.set('n', '<C-H>', ':leftabove vnew<CR>', { desc = 'Split window left' })
+-- vim.keymap.set('n', '<C-J>', ':belowright new<CR>', { desc = 'Split window down' })
+-- vim.keymap.set('n', '<C-K>', ':aboveleft new<CR>', { desc = 'Split window up' })
+-- vim.keymap.set('n', '<C-L>', ':rightbelow vnew<CR>', { desc = 'Split window right' })
 
 -- For buffer navigation
 vim.keymap.set('n', '<TAB>', ':bnext<CR>', { desc = 'Move to next buffer' })
