@@ -46,3 +46,20 @@ vim.o.termguicolors = true
 
 -- Don't scroll down more than 8 lines when scrolling off the screen
 vim.o.scrolloff = 8
+
+-- if (vim.fn.has("wsl"))
+-- then
+--   vim.g.clipboard = {
+--     name = "win32yank-wsl",
+--     copy = {
+--       ["+"] = "win32yank.exe -i --crlf",
+--       ["*"] = "win32yank.exe -i --crlf",
+--     },
+--
+--     paste = {
+--       ["+"] = "win32yank.exe -o --crlf",
+--       ["*"] = "win32yank.exe -o --crlf",
+--     },
+--     cache_enable = 0
+--   }
+-- end
