@@ -9,7 +9,6 @@ return {
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-calc" },
-      { "hrsh7th/cmp-emoji" },
       { "saadparwaiz1/cmp_luasnip" },
       { "f3fora/cmp-spell" },
       { "ray-x/cmp-treesitter" },
@@ -28,12 +27,13 @@ return {
         "zbirenbaum/copilot.lua",
         config = function()
           require("copilot").setup({
+            panel = { enabled = false },
             suggestion = {
               enabled = true,
               auto_trigger = true,
               debounce = 75,
               keymap = {
-                accept = "<c-a>",
+                accept = "<C-l>",
                 accept_word = false,
                 accept_line = false,
                 next = "<M-]>",
@@ -41,10 +41,15 @@ return {
                 dismiss = "<C-]>",
               },
             },
-            panel = { enabled = false },
           })
         end,
       },
+      -- {
+      --   "zbirenbaum/copilot-cmp",
+      --   config = function()
+      --     require("copilot_cmp").setup()
+      --   end
+      -- }
     },
     config = function()
       -- [[ Configure nvim-cmp ]]
@@ -56,16 +61,26 @@ return {
       lspkind.init()
 
       require('luasnip.loaders.from_vscode').lazy_load()
+
+      -- link quarto and rmarkdown to markdown snippets
+      luasnip.filetype_extend("quarto", { "markdown" })
+      luasnip.filetype_extend("rmarkdown", { "markdown" })
+
       luasnip.config.setup {}
 
       ---@diagnostic disable-next-line missing-fields
-      cmp.setup {
+      cmp.setup({
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
         },
+
         mapping = cmp.mapping.preset.insert {
+          ['<C-g>'] = cmp.mapping(function(fallback)
+            vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)),
+              'n', true)
+          end),
           ['<C-n>'] = cmp.mapping.select_next_item(),
           ['<C-p>'] = cmp.mapping.select_prev_item(),
           -- Disable because of indent issues
@@ -96,7 +111,6 @@ return {
             end
           end, { 'i', 's' }),
         },
-        autocomplete = false,
         formatting = {
           format = lspkind.cmp_format({
             with_text = true,
@@ -112,15 +126,21 @@ return {
               treesitter = "[TS]",
               calc = "[calc]",
               latex_symbols = "[tex]",
-              emoji = "[emoji]",
             },
           }),
         },
         sources = {
+          {
+            name = 'nvim_lsp',
+            entry_filter = function(entry, ctx)
+              return entry:get_kind() ~= cmp.lsp.CompletionItemKind.Text and
+                  entry:get_kind() ~= cmp.lsp.CompletionItemKind.Snippet
+            end
+          },
+          { name = "nvim_lsp_signature_help" },
+          -- { name = "copilot", },
           { name = "otter" }, -- for code chunks in quarto
           { name = "path" },
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
           { name = "luasnip",                keyword_length = 3, max_item_count = 3 },
           { name = "pandoc_references" },
           { name = "buffer",                 keyword_length = 5, max_item_count = 3 },
@@ -128,17 +148,19 @@ return {
           { name = "treesitter",             keyword_length = 5, max_item_count = 3 },
           { name = "calc" },
           { name = "latex_symbols" },
-          { name = "emoji" },
+        },
+        completion = {
+          completeopt = 'menu,menuone,noinsert',
         },
         view = {
-          entries = "native",
+          entries = 'native',
         },
         window = {
           documentation = {
             border = require("misc.style").border,
           },
         },
-      }
+      })
     end
   }
 }
