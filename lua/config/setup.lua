@@ -44,8 +44,7 @@ vim.o.termguicolors = true
 -- Don't scroll down more than 8 lines when scrolling off the screen
 vim.o.scrolloff = 8
 
-if (vim.fn.has("wsl"))
-then
+if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
     name = "WslClipboard",
     copy = {
