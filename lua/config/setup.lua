@@ -43,3 +43,20 @@ vim.o.termguicolors = true
 
 -- Don't scroll down more than 8 lines when scrolling off the screen
 vim.o.scrolloff = 8
+
+if (vim.fn.has("wsl"))
+then
+  vim.g.clipboard = {
+    name = "WslClipboard",
+    copy = {
+      ["+"] = "clip.exe",
+      ["*"] = "clip.exe",
+    },
+
+    paste = {
+      ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enable = 0
+  }
+end
