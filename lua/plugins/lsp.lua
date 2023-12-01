@@ -91,10 +91,15 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
       },
       julials = {},
       rust_analyzer = {},
-      tsserver = {},
       astro = { filetypes = { 'astro' } },
-      volar = { filetypes = { 'vue' } },
-      marksman = { "markdown", "quarto" },
+      -- Volar instead of tsserver
+      volar = { filetypes = { 'vue', 'javascript', 'typescript' } },
+
+      -- also needs:
+      -- $home/.config/marksman/config.toml :
+      -- [core]
+      -- markdown.file_extensions = ["md", "markdown", "qmd"]
+      marksman = {},
       html = { filetypes = { 'html', 'twig', 'hbs' } },
       cssls = { filetypes = { 'css', 'scss', 'less', 'sass' } },
       intelephense = {},
@@ -102,7 +107,6 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
         yaml = {
           schemas = {
             -- add custom schemas here
-            -- e.g.
             ["https://raw.githubusercontent.com/hits-mbm-dev/kimmdy/main/src/kimmdy/kimmdy-yaml-schema.json"] =
             "kimmdy.yml",
           }
@@ -130,6 +134,7 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
           telemetry = { enable = false },
         },
       },
+      emmet_language_server = {},
     }
 
     -- Setup neovim lua configuration
