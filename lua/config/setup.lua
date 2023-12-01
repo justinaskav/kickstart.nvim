@@ -16,6 +16,12 @@ vim.o.incsearch = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 
+-- Indent
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.bo.softtabstop = 2
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`

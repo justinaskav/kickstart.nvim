@@ -33,6 +33,15 @@ return {
           }
         },
       },
+      pickers = {
+        diagnostics = {
+          -- Only show the list of diagnostics if there are more than 2
+          -- This means that if there is only one item, it will open the item
+          -- directly.
+          threshold = 2,
+          wrap_results = true
+        },
+      }
     }
 
     -- Enable telescope fzf native, if installed
@@ -92,7 +101,7 @@ return {
     vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = '[G]it File [S]earch' })
     vim.keymap.set('n', '<leader>gg', ':LiveGrepGitRoot<cr>', { desc = '[G]it Root Search by [G]rep' })
-    -- vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-    -- vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+    vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+    vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
   end
 }
