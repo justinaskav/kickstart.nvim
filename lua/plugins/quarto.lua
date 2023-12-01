@@ -24,13 +24,32 @@ return {
       },
     },
   },
+  -- Some time in the future, when QIIME2 supports Python 3.10 with match statements
+  -- But right now I'll just use slime
+  --[[ {
+        dir = "~/Repositories/molten-nvim",
+        -- version = "^1.0.0",     -- use version <2.0.0 to avoid breaking changes
+        dependencies = { "3rd/image.nvim" },
+        keys = {
+          { "<leader>me", ":MoltenEvaluateOperator<CR>",      silent = true, noremap = true, desc = "Run Operator Selection Evaluation" },
+          { "<leader>ml", ":MoltenEvaluateLine<CR>",          silent = true, noremap = true, desc = "Evaluate Line" },
+          { "<leader>mr", ":MoltenReevaluateCell<CR>",        silent = true, noremap = true, desc = "Re-Evaluate Cell" },
+          { "<leader>mv", ":<C-u>MoltenEvaluateVisual<CR>gv", mode = "v",    silent = true,  noremap = true,                            desc = "Evaluate [V]isual Selection" }
+        },
+        init = function()
+          -- these are examples, not defaults. Please see the readme
+          vim.g.molten_image_provider = "image.nvim"
+          vim.g.molten_output_win_max_height = 20
+          vim.g.molten_auto_open_output = false
+        end,
+    }]]
   {
     "lukas-reineke/headlines.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
       require("headlines").setup({
         markdown = {
-          headline_highlights = false,
+          headline_highlights = true,
         },
         quarto = {
           query = vim.treesitter.query.parse(
@@ -45,6 +64,7 @@ return {
       })
     end
   },
+
   -- send code from python/r/qmd documets to a terminal or REPL
   -- like ipython, R, bash
   {
@@ -131,7 +151,28 @@ return {
 
   -- paste an image to markdown from the clipboard
   -- :PasteImg,
-  { "dfendr/clipboard-image.nvim" },
+  { "dfendr/clipboard-image.nvim", cmd = "PasteImg" },
+  {
+    -- see the image.nvim readme for more information about configuring this plugin
+    --[[ "3rd/image.nvim",
+    opts = {
+      backend = "kitty", -- whatever backend you would like to use
+      max_width = 100,
+      max_height = 12,
+      max_height_window_percentage = math.huge,
+      max_width_window_percentage = math.huge,
+      window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+      window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+    }, ]]
+    --[[ dependencies = { {
+      'edluffy/hologram.nvim',
+      config = function()
+        require("hologram").setup()
+      end,
+
+      rocks = { "magick" },
+    } } ]]
+  }
 
   -- preview equations
   -- {
