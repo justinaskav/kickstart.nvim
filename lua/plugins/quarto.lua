@@ -49,7 +49,17 @@ return {
   -- like ipython, R, bash
   {
     "jpalardy/vim-slime",
-    init = function()
+    keys = {
+      { "<C-CR>",     "<Plug>SlimeSendCell",       desc = "Slime: Send current cell to terminal" },
+      { "<S-CR>",     "<Plug>SlimeRegionSend",     desc = "Slime: Send selected region to terminal" },
+      { "<leader>cc", ":SlimeConfig<cr>",          desc = "[C]onfig Slime" },
+      { "<leader>ct", ":split term://$SHELL<cr>",  desc = "New [T]erminal" },
+      { "<leader>cr", ":split term://R<cr",        desc = "New [R] Terminal" },
+      { "<leader>cp", ":split term://python<cr>",  desc = "New [P]ython Terminal" },
+      { "<leader>ci", ":split term://ipython<cr>", desc = "New [I]Python Terminal" },
+      { "<leader>cj", ":split term://julia<cr>",   desc = "New [J]ulia Terminal" },
+    },
+    config = function()
       vim.b["quarto_is_" .. "python" .. "_chunk"] = false
       Quarto_is_in_python_chunk = function()
         require("otter.tools.functions").is_otter_language_context("python")
