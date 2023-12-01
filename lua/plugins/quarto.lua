@@ -23,6 +23,7 @@ return {
         languages = { "r", "python", "julia", "bash", "lua", "html" },
       },
     },
+    ft = { "quarto" },
   },
   -- Some time in the future, when QIIME2 supports Python 3.10 with match statements
   -- But right now I'll just use slime
