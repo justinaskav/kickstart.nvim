@@ -41,8 +41,8 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 150
-vim.o.timeoutlen = 300
+vim.o.updatetime = 100
+vim.o.timeoutlen = 250
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
