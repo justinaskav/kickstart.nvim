@@ -17,7 +17,7 @@ return {
           ensure_installed = { 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'astro', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'latex', 'html', 'css', },
 
           auto_install = false,
-          highlight = { enable = true },
+          highlight = { enable = true, additional_vim_regex_highlighting = false },
           indent = { enable = true },
           -- incremental_selection = {
           --   enable = true,
@@ -76,5 +76,6 @@ return {
       end, 0)
     end
   },
+  -- This shows the function (context) above
   "nvim-treesitter/nvim-treesitter-context",
 }

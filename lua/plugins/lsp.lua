@@ -3,6 +3,10 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
 {
   -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
+  tag = nil,
+  version = nil,
+  branch = "master",
+  event = "BufReadPre",
   dependencies = {
     -- Automatically install LSPs to stdpath for neovim
     'williamboman/mason.nvim',
@@ -14,6 +18,10 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
+    {
+      "microsoft/python-type-stubs",
+      cond = false
+    }
   },
   config = function()
     -- mason-lspconfig requires that these setup functions are called in this order

@@ -50,7 +50,7 @@ return {
     config = function()
       require("headlines").setup({
         markdown = {
-          headline_highlights = true,
+          headline_highlights = false
         },
         quarto = {
           query = vim.treesitter.query.parse(
