@@ -25,5 +25,10 @@ return {
         path = vault_path,
       },
     },
+    -- completion = {
+    --   prepend_note_id = false,
+    --   prepend_note_path = true,
+    -- },
+    disable_frontmatter = true
   },
 }
