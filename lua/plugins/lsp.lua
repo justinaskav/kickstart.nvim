@@ -9,7 +9,7 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
   event = "BufReadPre",
   dependencies = {
     -- Automatically install LSPs to stdpath for neovim
-    'williamboman/mason.nvim',
+    { 'williamboman/mason.nvim', config = true },
     'williamboman/mason-lspconfig.nvim',
 
     -- Useful status updates for LSP
@@ -115,10 +115,11 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
         yaml = {
           schemas = {
             -- add custom schemas here
-            ["https://raw.githubusercontent.com/hits-mbm-dev/kimmdy/main/src/kimmdy/kimmdy-yaml-schema.json"] =
-            "kimmdy.yml",
             ['http://json.schemastore.org/github-workflow'] = '.github/workflows/*.{yml,yaml}',
             ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
+          },
+          schemaStore = {
+            enable = true
           }
         }
       },

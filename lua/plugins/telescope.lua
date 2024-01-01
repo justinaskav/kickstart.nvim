@@ -103,5 +103,13 @@ return {
     vim.keymap.set('n', '<leader>gg', ':LiveGrepGitRoot<cr>', { desc = '[G]it Root Search by [G]rep' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+    vim.keymap.set('n', '<leader>si', require('telescope.builtin').lsp_implementations,
+      { desc = '[S]earch [I]mplementations' })
+    vim.keymap.set('n', '<leader>st', require('telescope.builtin').treesitter, { desc = '[S]earch [T]reesitter' })
+    vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[S]earch [C]ommands' })
+    -- Search History
+    vim.keymap.set('n', '<leader>sm', require('telescope.builtin').command_history,
+      { desc = '[S]earch Co[m]mand History' })
+    vim.keymap.set('n', '<leader>ss', require('telescope.builtin').search_history, { desc = '[S]earch [S]earch History' })
   end
 }
