@@ -73,12 +73,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
         return
       end
 
-      vim.lsp.buf.format {
+      vim.lsp.buf.format({
         async = false,
         filter = function(c)
           return c.id == client.id
         end,
-      }
+      })
     end, { desc = 'Format current buffer', buffer = bufnr })
   end
 })

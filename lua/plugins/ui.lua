@@ -16,7 +16,7 @@ return {
   {
     "simrat39/symbols-outline.nvim",
     keys = {
-      { "<leader>lo", ":SymbolsOutline<CR>", desc = "Symbols Outline" },
+      { "<leader>vo", ":SymbolsOutline<CR>", desc = "Toggle Symbols [O]utline" },
     },
     config = true
   },
