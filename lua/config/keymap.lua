@@ -11,8 +11,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Diagnostic keymaps
 -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>go', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 -- Move selected line / block of text in visual mode
 vim.keymap.set('v', "J", ":m '>+1<CR>gv=gv", { silent = true })
@@ -27,18 +26,14 @@ vim.keymap.set("n", "<leader>qp", ":QuartoPreview<CR>", { desc = '[P]review Quar
 vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Slime: Send current cell to terminal' })
 vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Slime: Send selected region to terminal' })
 
-local wk = require("which-key")
-
-wk.register({
+require("which-key").register({
 	['c'] = { name = "[C]ode", _ = 'which_key_ignore' },
-	['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
 	['g'] = { name = '[G]it', _ = 'which_key_ignore' },
 	-- ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
-	['l'] = { name = '[L]aravel', _ = 'which_key_ignore' },
 	['q'] = { name = '[Q]uarto', _ = 'which_key_ignore' },
 	['r'] = { name = '[R]ename', _ = 'which_key_ignore' },
 	['s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-	['v'] = { name = '[V]im', _ = 'which_key_ignore' },
+	['v'] = { name = '[V]im Plugins', _ = 'which_key_ignore' },
 	-- ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }, { prefix = '<leader>' })
 

@@ -28,7 +28,7 @@ return {
     {
       "microsoft/python-type-stubs",
       cond = false
-    }
+    },
   },
   config = function()
     -- mason-lspconfig requires that these setup functions are called in this order
@@ -57,10 +57,12 @@ return {
       nmap('<leader>da', vim.lsp.buf.code_action, 'Code [A]ction')
 
       nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-      nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+      nmap('<leader>dr', require('telescope.builtin').lsp_references, 'Go To [R]eferences')
       -- nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
       nmap('<leader>dd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
       nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
+      nmap('<leader>dq', function() require("trouble").toggle("quickfix") end, 'Open [Q]uickfix')
+      nmap('<leader>dl', function() require("trouble").toggle("workspace_diagnostics") end, 'Open [L]ist of diagnostics')
       -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
       -- See `:help K` for why this keymap
@@ -79,6 +81,10 @@ return {
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
       end, { desc = 'Format current buffer with LSP' })
+
+      require("which-key").register({
+	      ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+      }, { prefix = '<leader>' })
     end
 
     -- Enable the following language servers
@@ -92,6 +98,14 @@ return {
     local lua_plugin_paths = {}
 
     local servers = {
+      astro = { filetypes = { 'astro' } },
+      bashls = {
+        filetypes = { 'sh', 'bash', 'zsh' }
+      },
+      cssls = { filetypes = { 'css', 'scss', 'less', 'sass' } },
+      eslint = {},
+      html = { filetypes = { 'html', 'twig', 'hbs' } },
+      intelephense = {},
       jedi_language_server = {
         python = {
           analysis = {
@@ -101,44 +115,8 @@ return {
           }
         }
       },
-      bashls = {
-        filetypes = { 'sh', 'bash', 'zsh' }
-      },
+      jsonls = {},
       julials = {},
-      rust_analyzer = {},
-      astro = { filetypes = { 'astro' } },
-      -- Volar instead of tsserver
-      volar = { filetypes = { 'vue', 'javascript', 'typescript' } },
-      tailwindcss = {},
-      eslint = {},
-
-      -- also needs:
-      -- $home/.config/marksman/config.toml :
-      -- [core]
-      -- markdown.file_extensions = ["md", "markdown", "qmd"]
-      marksman = {
-        filetypes = { 'markdown', 'quarto' }
-      },
-      html = { filetypes = { 'html', 'twig', 'hbs' } },
-      cssls = { filetypes = { 'css', 'scss', 'less', 'sass' } },
-      intelephense = {},
-      yamlls = {
-        yaml = {
-          schemas = {
-            -- add custom schemas here
-            ['http://json.schemastore.org/github-workflow'] = '.github/workflows/*.{yml,yaml}',
-            ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
-          },
-          schemaStore = {
-            enable = true
-          }
-        }
-      },
-      r_language_server = {
-        lsp = {
-          rich_documentation = false,
-        }
-      },
       lua_ls = {
         Lua = {
           completion = {
@@ -156,7 +134,33 @@ return {
           telemetry = { enable = false },
         },
       },
-      emmet_language_server = {},
+      -- also needs:
+      -- $home/.config/marksman/config.toml :
+      -- [core]
+      -- markdown.file_extensions = ["md", "markdown", "qmd"]
+      marksman = {
+        filetypes = { 'markdown', 'quarto' }
+      },
+      r_language_server = {
+        lsp = {
+          rich_documentation = false,
+        }
+      },
+      tailwindcss = {},
+      -- Volar instead of tsserver
+      volar = { filetypes = { 'vue', 'javascript', 'typescript' } },
+      yamlls = {
+        yaml = {
+          schemas = {
+            -- add custom schemas here
+            ['http://json.schemastore.org/github-workflow'] = '.github/workflows/*.{yml,yaml}',
+            ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
+          },
+          schemaStore = {
+            enable = true
+          }
+        }
+      },
     }
 
     -- Setup neovim lua configuration

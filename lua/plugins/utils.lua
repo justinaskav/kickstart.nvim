@@ -23,7 +23,6 @@ return {
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
@@ -49,5 +48,16 @@ return {
     opts = {
       open_mapping = [[<c-\>]]
     }
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      local trouble = require("trouble")
+      trouble.setup({})
+
+      -- Sometimes we need to close Trouble without LSP
+      vim.keymap.set('n', '<leader>vt', function() trouble.toggle() end, { desc = 'Toggle [T]rouble' })
+    end
   }
 }

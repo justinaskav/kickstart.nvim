@@ -23,7 +23,7 @@ return {
           'rafamadriz/friendly-snippets',
         }
       },
-
+      -- Pictograms
       'onsails/lspkind-nvim',
       {
         "zbirenbaum/copilot.lua",
@@ -37,9 +37,9 @@ return {
               accept = "<C-l>",
               accept_word = false,
               accept_line = false,
-              next = "<M-]>",
-              prev = "<M-[>",
-              dismiss = "<C-]>",
+              prev = false,
+              next = "<C-]>",
+              dismiss = false,
             },
           },
         }
