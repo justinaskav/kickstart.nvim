@@ -2,6 +2,7 @@ return {
   {
     "quarto-dev/quarto-nvim",
     dev = false,
+    ft = { "quarto" },
     dependencies = {
       {
         "jmbuhr/otter.nvim",
@@ -18,12 +19,21 @@ return {
         },
       },
     },
-    opts = {
-      lspFeatures = {
-        languages = { "r", "python", "julia", "bash", "lua", "html" },
-      },
-    },
-    ft = { "quarto" },
+    config = function()
+      require('quarto').setup({
+        lspFeatures = {
+          languages = { "r", "python", "julia", "bash", "lua", "html" },
+        },
+      })
+
+      vim.keymap.set("n", "<leader>qp", ":QuartoPreview<CR>", { desc = '[P]review Quarto document' })
+      vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Slime: Send current cell to terminal' })
+      vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Slime: Send selected region to terminal' })
+
+      require('which-key').register({
+        ['q'] = { name = '[Q]uarto', _ = 'which_key_ignore' }
+      }, { prefix = '<leader>' })
+    end,
   },
   -- Some time in the future, when QIIME2 supports Python 3.10 with match statements
   -- But right now I'll just use slime
@@ -46,9 +56,10 @@ return {
     }]]
   {
     "lukas-reineke/headlines.nvim",
-    dependencies = { 
+    dependencies = {
       "nvim-treesitter/nvim-treesitter"
     },
+    ft = { "markdown", "quarto" },
     config = function()
       require("headlines").setup({
         markdown = {
@@ -72,15 +83,9 @@ return {
   -- like ipython, R, bash
   {
     "jpalardy/vim-slime",
+    ft = { "python", "r", "quarto" },
     keys = {
-      { "<C-CR>",     "<Plug>SlimeSendCell",       desc = "Slime: Send current cell to terminal" },
-      { "<S-CR>",     "<Plug>SlimeRegionSend",     desc = "Slime: Send selected region to terminal" },
-      { "<leader>cc", ":SlimeConfig<cr>",          desc = "[C]onfig Slime" },
-      { "<leader>ct", ":split term://$SHELL<cr>",  desc = "New [T]erminal" },
-      { "<leader>cr", ":split term://R<cr",        desc = "New [R] Terminal" },
-      { "<leader>cp", ":split term://python<cr>",  desc = "New [P]ython Terminal" },
-      { "<leader>ci", ":split term://ipython<cr>", desc = "New [I]Python Terminal" },
-      { "<leader>cj", ":split term://julia<cr>",   desc = "New [J]ulia Terminal" },
+      { "<leader>vs", ":SlimeConfig<CR>", desc = "Config [S]lime" },
     },
     config = function()
       vim.b["quarto_is_" .. "python" .. "_chunk"] = false
@@ -144,11 +149,19 @@ return {
 
       vim.g.slime_no_mappings = 1
 
+      vim.keymap.set('n', "<C-CR>", "<Plug>SlimeSendCell", { desc = "Send cell to Slime terminal" })
+      vim.keymap.set('n', "<S-CR>", "<Plug>SlimeRegionSend", { desc = "Send region to Slime terminal" })
+      vim.keymap.set("n", "<leader>tt", ":split term://$SHELL<cr>", { desc = "New [T]erminal" })
+      vim.keymap.set("n", "<leader>tr", ":split term://R<cr", { desc = "New [R] terminal" })
+      vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
+      vim.keymap.set("n", "<leader>ti", ":split term://ipython<cr>", { desc = "New [I]Python terminal" })
+      vim.keymap.set("n", "<leader>tj", ":split term://julia<cr>", { desc = "New [J]ulia terminal" })
+      vim.keymap.set("n", "<leader>tm", mark_terminal, { desc = "[M]ark terminal to use with Slime" })
+      vim.keymap.set("n", "<leader>ts", set_terminal, { desc = "[S]et terminal" })
+
       require("which-key").register({
-        ["<leader>cm"] = { mark_terminal, "[M]ark terminal" },
-        ["<leader>cs"] = { set_terminal, "[S]et terminal" },
-        -- ["<leader>ct"] = { toggle_slime_tmux_nvim, "[T]oggle tmux/nvim terminal" },
-      })
+        ['t'] = { name = "[T]erminal", _ = 'which_key_ignore' },
+      }, { prefix = '<leader>' })
     end,
   },
 

@@ -2,26 +2,31 @@ return {
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-nvim-lsp-signature-help" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
+      { "hrsh7th/cmp-emoji" },
       -- { "hrsh7th/cmp-calc" },
       { "saadparwaiz1/cmp_luasnip" },
       -- { "f3fora/cmp-spell" },
-      { "ray-x/cmp-treesitter" },
+      -- { "ray-x/cmp-treesitter" },
       { "kdheepak/cmp-latex-symbols" },
       { "jmbuhr/cmp-pandoc-references" },
       {
         "L3MON4D3/LuaSnip",
-        version = nil,
-        branch = "master",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp",
         dependencies = {
-          -- Adds a number of user-friendly snippets
-          'rafamadriz/friendly-snippets',
-        }
+          -- Optional dependencies
+          -- "saadparwaiz1/cmp_luasnip",
+          "rafamadriz/friendly-snippets",
+        },
       },
       -- Pictograms
       'onsails/lspkind-nvim',
@@ -49,8 +54,8 @@ return {
       -- [[ Configure nvim-cmp ]]
       -- See `:help cmp`
       local cmp = require 'cmp'
-
       local luasnip = require 'luasnip'
+
       require('luasnip.loaders.from_vscode').lazy_load()
 
       -- link quarto and rmarkdown to markdown snippets
@@ -60,6 +65,12 @@ return {
       luasnip.config.setup {}
 
       local lspkind = require 'lspkind'
+
+      local has_words_before = function()
+        unpack = unpack or table.unpack
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      end
 
       ---@diagnostic disable-next-line missing-fields
       cmp.setup({
@@ -97,6 +108,8 @@ return {
               cmp.select_next_item()
             elseif luasnip.expand_or_locally_jumpable() then
               luasnip.expand_or_jump()
+            elseif has_words_before() then
+              cmp.complete()
             else
               fallback()
             end
@@ -112,20 +125,21 @@ return {
           end, { 'i', 's' }),
         },
         sources = {
-          {
-            name = 'nvim_lsp',
-            entry_filter = function(entry, ctx)
-              return entry:get_kind() ~= cmp.lsp.CompletionItemKind.Text and
-                  entry:get_kind() ~= cmp.lsp.CompletionItemKind.Snippet
-            end
-          },
+          { name = "pandoc_references",      max_item_count = 7 },
           { name = "nvim_lsp_signature_help" },
           { name = "otter" }, -- for code chunks in quarto
+          { name = "luasnip",                max_item_count = 5 },
+          {
+            name = 'nvim_lsp',
+            -- entry_filter = function(entry, ctx)
+            --   return entry:get_kind() ~= cmp.lsp.CompletionItemKind.Text and
+            --       entry:get_kind() ~= cmp.lsp.CompletionItemKind.Snippet
+            -- end
+          },
           { name = "path" },
-          { name = "pandoc_references" },
-          { name = "luasnip",                keyword_length = 3, max_item_count = 3 },
-          { name = "buffer",                 keyword_length = 5, max_item_count = 3 },
-          { name = "treesitter",             keyword_length = 5, max_item_count = 3 },
+          { name = "emoji" },
+          { name = "buffer", },
+          -- { name = "treesitter",   keyword_length = 5, max_item_count = 3 },
           -- { name = "calc" },
           { name = "latex_symbols" },
         },

@@ -59,5 +59,28 @@ return {
       -- Sometimes we need to close Trouble without LSP
       vim.keymap.set('n', '<leader>vt', function() trouble.toggle() end, { desc = 'Toggle [T]rouble' })
     end
+  },
+  {
+    "epwalsh/pomo.nvim",
+    version = "*", -- Recommended, use latest release instead of latest commit
+    lazy = true,
+    cmd = { "TimerStart", "TimerRepeat" },
+    opts = {
+        -- See below for full list of options 👇
+    },
+  },
+  {
+    "danymat/neogen",
+    keys = {
+      { "<leader>vn", ":lua require('neogen').generate()<CR>", noremap = true, desc = "Generate [N]eogen" },
+    },
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require('neogen').setup {
+        snippet_engine = 'luasnip'
+      }
+    end,
+    -- Uncomment next line if you want to follow only stable versions
+    version = "*"
   }
 }

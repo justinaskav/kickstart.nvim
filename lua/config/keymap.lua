@@ -21,16 +21,9 @@ vim.keymap.set('v', "K", ":m '<-2<CR>gv=gv", { silent = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Scroll down and center' })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll up and center' })
 
--- Quarto Keymaps
-vim.keymap.set("n", "<leader>qp", ":QuartoPreview<CR>", { desc = '[P]review Quarto document' })
-vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Slime: Send current cell to terminal' })
-vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Slime: Send selected region to terminal' })
-
 require("which-key").register({
-	['c'] = { name = "[C]ode", _ = 'which_key_ignore' },
 	['g'] = { name = '[G]it', _ = 'which_key_ignore' },
 	-- ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
-	['q'] = { name = '[Q]uarto', _ = 'which_key_ignore' },
 	['r'] = { name = '[R]ename', _ = 'which_key_ignore' },
 	['s'] = { name = '[S]earch', _ = 'which_key_ignore' },
 	['v'] = { name = '[V]im Plugins', _ = 'which_key_ignore' },

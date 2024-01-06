@@ -157,7 +157,8 @@ return {
             ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
           },
           schemaStore = {
-            enable = true
+            enable = true,
+            url = ""
           }
         }
       },

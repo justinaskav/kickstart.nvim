@@ -14,6 +14,7 @@ return {
     "folke/tokyonight.nvim",
     priority = 1000,
     lazy = false,
+    enabled = false,
     config = function()
       require("tokyonight").setup({
         style = "night",
@@ -25,6 +26,8 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
+    lazy = false,
+    enabled = false,
     config = function()
       require('catppuccin').setup({
         transparent_background = true,
