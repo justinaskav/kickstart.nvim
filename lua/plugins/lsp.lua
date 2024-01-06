@@ -1,6 +1,4 @@
-return -- NOTE: This is where your plugins related to LSP can be installed.
---  The configuration is done below. Search for lspconfig to find it below.
-{
+return {
   -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   tag = nil,
@@ -8,13 +6,22 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
   branch = "master",
   event = "BufReadPre",
   dependencies = {
-    -- Automatically install LSPs to stdpath for neovim
-    { 'williamboman/mason.nvim', config = true },
+    'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
 
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+    {
+      'j-hui/fidget.nvim',
+      tag = "v1.1.0",
+      opts = {
+        notification = {
+          window = {
+            winblend = 80,
+          },
+        }
+      }
+    },
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
@@ -102,6 +109,8 @@ return -- NOTE: This is where your plugins related to LSP can be installed.
       astro = { filetypes = { 'astro' } },
       -- Volar instead of tsserver
       volar = { filetypes = { 'vue', 'javascript', 'typescript' } },
+      tailwindcss = {},
+      eslint = {},
 
       -- also needs:
       -- $home/.config/marksman/config.toml :

@@ -1,18 +1,35 @@
-return { {
-  -- Theme inspired by Atom
-  'navarasu/onedark.nvim',
-  priority = 1000,
-  config = function()
-    require('onedark').setup {
-      style = 'darker',
-      transparent = true
-    }
-    require('onedark').load()
-  end,
-},
+return {
+  {
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+      require('onedark').setup {
+        style = 'darker',
+        transparent = true
+      }
+
+      vim.cmd [[colorscheme onedark]]
+    end,
+  },
   {
     "folke/tokyonight.nvim",
-    lazy = false,
     priority = 1000,
-    opts = {},
-  } }
+    lazy = false,
+    config = function()
+      require("tokyonight").setup({
+        style = "night",
+        transparent = true,
+      })
+    end,
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require('catppuccin').setup({
+        transparent_background = true,
+      })
+    end,
+  }
+}

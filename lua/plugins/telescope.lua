@@ -111,5 +111,6 @@ return {
     vim.keymap.set('n', '<leader>sm', require('telescope.builtin').command_history,
       { desc = '[S]earch Co[m]mand History' })
     vim.keymap.set('n', '<leader>ss', require('telescope.builtin').search_history, { desc = '[S]earch [S]earch History' })
+    vim.keymap.set('n', '<leader>sz', require('telescope.builtin').colorscheme, { desc = '[S]earch for a Colorscheme' })
   end
 }
