@@ -139,7 +139,6 @@ return {
           { name = "path" },
           { name = "emoji" },
           { name = "buffer", },
-          -- { name = "treesitter",   keyword_length = 5, max_item_count = 3 },
           -- { name = "calc" },
           { name = "latex_symbols" },
         },

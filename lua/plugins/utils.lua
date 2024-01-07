@@ -10,6 +10,7 @@ return {
     },
     config = function()
       require('Comment').setup({
+        -- Needed for jsx/tsx files
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
       })
     end
@@ -37,7 +38,7 @@ return {
   },
   {
     "chrishrb/gx.nvim",
-    event = { "BufEnter" },
+    event = "BufEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = true,
   },
@@ -52,6 +53,7 @@ return {
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "BufEnter",
     config = function()
       local trouble = require("trouble")
       trouble.setup({})
@@ -66,7 +68,7 @@ return {
     lazy = true,
     cmd = { "TimerStart", "TimerRepeat" },
     opts = {
-        -- See below for full list of options 👇
+      -- See below for full list of options 👇
     },
   },
   {

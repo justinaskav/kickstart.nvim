@@ -11,7 +11,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Diagnostic keymaps
 -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>go', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', 'go', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 -- Move selected line / block of text in visual mode
 vim.keymap.set('v', "J", ":m '>+1<CR>gv=gv", { silent = true })

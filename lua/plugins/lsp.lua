@@ -58,11 +58,14 @@ return {
 
       nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
       nmap('<leader>dr', require('telescope.builtin').lsp_references, 'Go To [R]eferences')
-      -- nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+      nmap('<leader>dI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
       nmap('<leader>dd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-      nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
-      nmap('<leader>dq', function() require("trouble").toggle("quickfix") end, 'Open [Q]uickfix')
-      nmap('<leader>dl', function() require("trouble").toggle("workspace_diagnostics") end, 'Open [L]ist of diagnostics')
+      -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
+      vim.keymap.set('n', '<leader>dq', function() require("trouble").toggle("quickfix") end,
+        { desc = 'Trouble: Open [Q]uickfix' })
+      vim.keymap.set('n', '<leader>dl', function() require("trouble").toggle("workspace_diagnostics") end,
+        { desc = 'Trouble: Open [L]ist of diagnostics' })
+      -- No need for document symbols
       -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
       -- See `:help K` for why this keymap
@@ -83,7 +86,7 @@ return {
       end, { desc = 'Format current buffer with LSP' })
 
       require("which-key").register({
-	      ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+        ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
       }, { prefix = '<leader>' })
     end
 
@@ -105,7 +108,12 @@ return {
       cssls = { filetypes = { 'css', 'scss', 'less', 'sass' } },
       eslint = {},
       html = { filetypes = { 'html', 'twig', 'hbs' } },
-      intelephense = {},
+      intelephense = {
+        -- Instead of HOME, put intelephense folder in XDG_DATA_HOME
+        init_options = {
+          globalStoragePath = os.getenv('HOME') .. '/.local/share/intelephense'
+        }
+      },
       jedi_language_server = {
         python = {
           analysis = {
@@ -184,9 +192,11 @@ return {
           on_attach = on_attach,
           settings = servers[server_name],
           filetypes = (servers[server_name] or {}).filetypes,
+          init_options = (servers[server_name] or {}).init_options,
         }
       end,
     }
+
     require('config.autoformat')
   end
 }
