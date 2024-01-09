@@ -8,6 +8,7 @@ return {
         transparent = true
       }
       vim.cmd [[colorscheme onedark]]
+      vim.cmd [[highlight CodeBlock guibg=#272731]]
     end,
   },
   {

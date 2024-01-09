@@ -27,8 +27,6 @@ return {
       })
 
       vim.keymap.set("n", "<leader>qp", ":QuartoPreview<CR>", { desc = '[P]review Quarto document' })
-      vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Slime: Send current cell to terminal' })
-      vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Slime: Send selected region to terminal' })
 
       require('which-key').register({
         ['q'] = { name = '[Q]uarto', _ = 'which_key_ignore' }
@@ -152,12 +150,16 @@ return {
       vim.keymap.set('n', "<C-CR>", "<Plug>SlimeSendCell", { desc = "Send cell to Slime terminal" })
       vim.keymap.set('n', "<S-CR>", "<Plug>SlimeRegionSend", { desc = "Send region to Slime terminal" })
       vim.keymap.set("n", "<leader>tt", ":split term://$SHELL<cr>", { desc = "New [T]erminal" })
-      vim.keymap.set("n", "<leader>tr", ":split term://R<cr", { desc = "New [R] terminal" })
+      vim.keymap.set("n", "<leader>tr", ":split term://R<cr>", { desc = "New [R] terminal" })
       vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
       vim.keymap.set("n", "<leader>ti", ":split term://ipython<cr>", { desc = "New [I]Python terminal" })
+      vim.keymap.set("n", "<leader>tv", ":vsplit term://ipython<cr> <C-w>L :vert res 80<cr>", { desc = "New [V]ertical IPython terminal" })
       vim.keymap.set("n", "<leader>tj", ":split term://julia<cr>", { desc = "New [J]ulia terminal" })
       vim.keymap.set("n", "<leader>tm", mark_terminal, { desc = "[M]ark terminal to use with Slime" })
       vim.keymap.set("n", "<leader>ts", set_terminal, { desc = "[S]et terminal" })
+
+      vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Slime: Send current cell to terminal' })
+      vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Slime: Send selected region to terminal' })
 
       require("which-key").register({
         ['t'] = { name = "[T]erminal", _ = 'which_key_ignore' },

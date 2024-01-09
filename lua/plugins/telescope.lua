@@ -92,7 +92,7 @@ return {
 
       -- See `:help telescope.builtin`
       vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-      vim.keymap.set('n', '<leader>sb', require('telescope.builtin').buffers, { desc = '[B] Find existing buffers' })
+      vim.keymap.set('n', '<leader><leader>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -127,8 +127,8 @@ return {
     config = function()
       require("telescope").load_extension "frecency"
 
-      vim.keymap.set("n", "<leader><space>", "<Cmd>Telescope frecency workspace=CWD<CR>",
-        { desc = '[ ] Find most opened files' })
+      vim.keymap.set("n", "<leader>.", "<Cmd>Telescope frecency workspace=CWD<CR>",
+        { desc = '[.] Find most opened files' })
     end,
   },
 }

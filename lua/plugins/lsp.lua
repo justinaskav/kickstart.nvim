@@ -100,6 +100,8 @@ return {
     --  define the property 'filetypes' to the map in question.
     local lua_plugin_paths = {}
 
+    local util = require("lspconfig.util")
+
     local servers = {
       astro = { filetypes = { 'astro' } },
       bashls = {
@@ -149,6 +151,21 @@ return {
       marksman = {
         filetypes = { 'markdown', 'quarto' }
       },
+      -- pyright = {
+      --   python = {
+      --     stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
+      --     analysis = {
+      --       autoSearchPaths = true,
+      --       useLibraryCodeForTypes = false,
+      --       diagnosticMode = "openFilesOnly",
+      --     },
+      --   },
+      --   root_dir = function(fname)
+      --     return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+      --       fname
+      --     ) or util.path.dirname(fname)
+      --   end,
+      -- },
       r_language_server = {
         lsp = {
           rich_documentation = false,
@@ -193,6 +210,7 @@ return {
           settings = servers[server_name],
           filetypes = (servers[server_name] or {}).filetypes,
           init_options = (servers[server_name] or {}).init_options,
+          root_dir = (servers[server_name] or {}).root_dir,
         }
       end,
     }
