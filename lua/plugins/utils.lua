@@ -84,5 +84,24 @@ return {
     end,
     -- Uncomment next line if you want to follow only stable versions
     version = "*"
-  }
+  },
+  {
+    'mhartington/formatter.nvim',
+    config = function()
+      require('formatter').setup({
+        filetype = {
+          -- Add pint formatter
+          php = {
+            function ()
+              return {
+                exe = "pint",
+                stdin = false,
+                ignore_exitcode = true,
+              }
+            end
+          }
+        }
+      })
+    end
+  },
 }

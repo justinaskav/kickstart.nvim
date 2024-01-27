@@ -69,6 +69,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Run formatting with keyboard shortcut
     vim.keymap.set('n', '<leader>df', function()
+
+      -- Check if filetype is .php, if yes, use formatter.nvim
+      
+      local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+      if filetype == 'php' then
+        -- Run ':Format' command
+        vim.api.nvim_command('Format')
+        return
+      end
+
       if not format_is_enabled then
         return
       end
