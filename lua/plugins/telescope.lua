@@ -29,9 +29,9 @@ return {
               ['<C-u>'] = false,
               ['<C-d>'] = false,
             },
-            n = {
-              ["d"] = "delete_buffer"
-            }
+            -- n = {
+            --   ["d"] = "delete_buffer"
+            -- }
           },
         },
         pickers = {
@@ -41,6 +41,18 @@ return {
             -- directly.
             threshold = 2,
             wrap_results = true
+          },
+          buffers = {
+            sort_mru = true,
+            -- previewer = false,
+            mappings = {
+              i = {
+                ["<c-d>"] = "delete_buffer",
+              },
+              n = {
+                ["<c-d>"] = "delete_buffer",
+              }
+            }
           },
         },
         extensions = {

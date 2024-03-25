@@ -16,13 +16,17 @@ return {
               border = require("misc.style").border,
             },
           },
+          buffers = {
+            set_filetype = true,
+          },
+          handle_leading_whitespace = true,
         },
       },
     },
     config = function()
       require('quarto').setup({
         lspFeatures = {
-          languages = { "r", "python", "julia", "bash", "lua", "html" },
+          languages = { "r", "python", "julia", "bash", "lua", "html", "dot", "javascript", "typescript", "ojs" },
         },
       })
 
@@ -86,23 +90,26 @@ return {
       { "<leader>vs", ":SlimeConfig<CR>", desc = "Config [S]lime" },
     },
     config = function()
-      vim.b["quarto_is_" .. "python" .. "_chunk"] = false
+      vim.b['quarto_is_python_chunk'] = false
       Quarto_is_in_python_chunk = function()
-        require("otter.tools.functions").is_otter_language_context("python")
+        require('otter.tools.functions').is_otter_language_context 'python'
       end
 
-      vim.cmd([[
+      vim.cmd [[
       let g:slime_dispatch_ipython_pause = 100
       function SlimeOverride_EscapeText_quarto(text)
       call v:lua.Quarto_is_in_python_chunk()
-      if exists('g:slime_python_ipython') && len(split(a:text,"\n")) > 1 && b:quarto_is_python_chunk
+      if exists('g:slime_python_ipython') && len(split(a:text,"\n")) > 1 && b:quarto_is_python_chunk && !(exists('b:quarto_is_r_mode') && b:quarto_is_r_mode)
       return ["%cpaste -q\n", g:slime_dispatch_ipython_pause, a:text, "--", "\n"]
       else
-      return a:text
+      if exists('b:quarto_is_r_mode') && b:quarto_is_r_mode && b:quarto_is_python_chunk
+      return [a:text, "\n"]
+      else
+      return [a:text]
+      end
       end
       endfunction
-      ]])
-
+      ]]
       local function mark_terminal()
         vim.g.slime_last_channel = vim.b.terminal_job_id
         vim.print(vim.g.slime_last_channel)

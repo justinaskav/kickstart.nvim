@@ -92,7 +92,7 @@ return {
         filetype = {
           -- Add pint formatter
           php = {
-            function ()
+            function()
               return {
                 exe = "pint",
                 stdin = false,
@@ -104,4 +104,8 @@ return {
       })
     end
   },
+  -- {
+  --   "luckasRanarison/tailwind-tools.nvim",
+  --   opts = {} -- your configuration
+  -- }
 }

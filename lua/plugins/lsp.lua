@@ -173,7 +173,7 @@ return {
       },
       tailwindcss = {},
       -- Volar instead of tsserver
-      volar = { filetypes = { 'vue', 'javascript', 'typescript' } },
+      volar = { filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' }, init_options = { vue = { hybridMode = false } } },
       yamlls = {
         yaml = {
           schemas = {
