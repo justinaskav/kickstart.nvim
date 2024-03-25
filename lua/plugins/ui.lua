@@ -18,7 +18,9 @@ return {
     keys = {
       { "<leader>vo", ":SymbolsOutline<CR>", desc = "Toggle Symbols [O]utline" },
     },
-    config = true
+    opts = {
+      position = "right",
+    }
   },
   {
     'nvim-lualine/lualine.nvim',
