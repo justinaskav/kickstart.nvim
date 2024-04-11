@@ -172,6 +172,7 @@ return {
         }
       },
       tailwindcss = {},
+      typst_lsp = {},
       -- Volar instead of tsserver
       volar = { filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' }, init_options = { vue = { hybridMode = false } } },
       yamlls = {

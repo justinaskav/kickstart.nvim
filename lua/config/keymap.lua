@@ -46,3 +46,15 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 -- For buffer navigation
 vim.keymap.set('n', '<TAB>', ':bnext<CR>', { desc = 'Move to next buffer' })
 vim.keymap.set('n', '<S-TAB>', ':bprevious<CR>', { desc = 'Move to previous buffer' })
+
+vim.keymap.set("n", "<leader>tt", ":split term://$SHELL<cr>", { desc = "New [T]erminal" })
+vim.keymap.set("n", "<leader>tr", ":split term://R<cr>", { desc = "New [R] terminal" })
+vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
+vim.keymap.set("n", "<leader>ti", ":split term://ipython<cr>", { desc = "New [I]Python terminal" })
+vim.keymap.set("n", "<leader>tv", ":vsplit term://ipython<cr> <C-w>L :vert res 80<cr>",
+	{ desc = "New [V]ertical IPython terminal" })
+vim.keymap.set("n", "<leader>tj", ":split term://julia<cr>", { desc = "New [J]ulia terminal" })
+
+require("which-key").register({
+	['t'] = { name = "[T]erminal", _ = 'which_key_ignore' },
+}, { prefix = '<leader>' })

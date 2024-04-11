@@ -89,7 +89,21 @@ return {
     keys = {
       { "<leader>vs", ":SlimeConfig<CR>", desc = "Config [S]lime" },
     },
+    init = function()
+      -- these two should be set before the plugin loads
+      vim.g.slime_target = "neovim"
+      vim.g.slime_python_ipython = 1
+      vim.g.slime_no_mappings = true
+    end,
     config = function()
+      vim.g.slime_input_pid = false
+      vim.g.slime_suggest_default = true
+      vim.g.slime_menu_config = false
+      vim.g.slime_neovim_ignore_unlisted = false
+
+      -- options not set here are g:slime_neovim_menu_order, g:slime_neovim_menu_delimiter, and g:slime_get_jobid
+      -- see the documentation above to learn about those options
+
       vim.b['quarto_is_python_chunk'] = false
       Quarto_is_in_python_chunk = function()
         require('otter.tools.functions').is_otter_language_context 'python'
@@ -110,67 +124,47 @@ return {
       end
       endfunction
       ]]
-      local function mark_terminal()
-        vim.g.slime_last_channel = vim.b.terminal_job_id
-        vim.print(vim.g.slime_last_channel)
-      end
 
-      local function set_terminal()
-        vim.b.slime_config = { jobid = vim.g.slime_last_channel }
+      -- called MotionSend but works with textobjects as well
+      -- vim.keymap.set("n", "gz", "<Plug>SlimeMotionSend", { remap = true, silent = false })
+      -- vim.keymap.set("n", "gzz", "<Plug>SlimeLineSend", { remap = true, silent = false })
+      -- vim.keymap.set("n", "gzc", "<Plug>SlimeConfig", { remap = true, silent = false })
+      --
+      --- Send code to terminal with vim-slime
+      --- If an R terminal has been opend, this is in r_mode
+      --- and will handle python code via reticulate when sent
+      --- from a python chunk.
+      --- TODO: incorpoarate this into quarto-nvim plugin
+      --- such that QuartoRun functions get the same capabilities
+      --- TODO: figure out bracketed paste for reticulate python repl.
+      local function send_cell()
+        if vim.b['quarto_is_r_mode'] == nil then
+          vim.fn['slime#send_cell']()
+          return
+        end
+        if vim.b['quarto_is_r_mode'] == true then
+          vim.g.slime_python_ipython = 0
+          local is_python = require('otter.tools.functions').is_otter_language_context 'python'
+          if is_python and not vim.b['reticulate_running'] then
+            vim.fn['slime#send']('reticulate::repl_python()' .. '\r')
+            vim.b['reticulate_running'] = true
+          end
+          if not is_python and vim.b['reticulate_running'] then
+            vim.fn['slime#send']('exit' .. '\r')
+            vim.b['reticulate_running'] = false
+          end
+          vim.fn['slime#send_cell']()
+        end
       end
 
       vim.b.slime_cell_delimiter = "# %%"
 
-      -- slime, neovvim terminal
-      vim.g.slime_target = "neovim"
-      vim.g.slime_python_ipython = 1
-
-      -- -- slime, tmux
-      -- vim.g.slime_target = 'tmux'
-      -- vim.g.slime_bracketed_paste = 1
-      -- vim.g.slime_default_config = { socket_name = "default", target_pane = ".2" }
-
-      local function toggle_slime_tmux_nvim()
-        if vim.g.slime_target == "tmux" then
-          pcall(function()
-            vim.b.slime_config = nil
-            vim.g.slime_default_config = nil
-          end)
-          -- slime, neovvim terminal
-          vim.g.slime_target = "neovim"
-          vim.g.slime_bracketed_paste = 0
-          vim.g.slime_python_ipython = 1
-        elseif vim.g.slime_target == "neovim" then
-          pcall(function()
-            vim.b.slime_config = nil
-            vim.g.slime_default_config = nil
-          end)
-          -- -- slime, tmux
-          vim.g.slime_target = "tmux"
-          vim.g.slime_bracketed_paste = 1
-          vim.g.slime_default_config = { socket_name = "default", target_pane = ".2" }
-        end
-      end
-
-      vim.g.slime_no_mappings = 1
-
-      vim.keymap.set('n', "<C-CR>", "<Plug>SlimeSendCell", { desc = "Send cell to Slime terminal" })
+      vim.keymap.set('n', "<C-CR>", send_cell, { desc = "Send cell to Slime terminal" })
       vim.keymap.set('n', "<S-CR>", "<Plug>SlimeRegionSend", { desc = "Send region to Slime terminal" })
-      vim.keymap.set("n", "<leader>tt", ":split term://$SHELL<cr>", { desc = "New [T]erminal" })
-      vim.keymap.set("n", "<leader>tr", ":split term://R<cr>", { desc = "New [R] terminal" })
-      vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
-      vim.keymap.set("n", "<leader>ti", ":split term://ipython<cr>", { desc = "New [I]Python terminal" })
-      vim.keymap.set("n", "<leader>tv", ":vsplit term://ipython<cr> <C-w>L :vert res 80<cr>", { desc = "New [V]ertical IPython terminal" })
-      vim.keymap.set("n", "<leader>tj", ":split term://julia<cr>", { desc = "New [J]ulia terminal" })
-      vim.keymap.set("n", "<leader>tm", mark_terminal, { desc = "[M]ark terminal to use with Slime" })
-      vim.keymap.set("n", "<leader>ts", set_terminal, { desc = "[S]et terminal" })
-
-      vim.keymap.set("n", "<C-CR>", "<Plug>SlimeSendCell", { desc = 'Slime: Send current cell to terminal' })
+      -- vim.keymap.set("x", "<S-CR>", "<Plug>SlimeRegionSend", { remap = true, silent = false })
       vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Slime: Send selected region to terminal' })
 
-      require("which-key").register({
-        ['t'] = { name = "[T]erminal", _ = 'which_key_ignore' },
-      }, { prefix = '<leader>' })
+      vim.keymap.set("n", "<leader>tm", "<Plug>SlimeConfig", { desc = "[M]ark terminal to use with Slime" })
     end,
   },
 

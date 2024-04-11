@@ -1,4 +1,4 @@
-local vault_path = "/Users/justinas/Library/Mobile Documents/iCloud~md~obsidian/Documents/Thinking"
+local vault_path = "/Users/justinas/Thinking"
 
 return {
   "epwalsh/obsidian.nvim",

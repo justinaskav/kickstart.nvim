@@ -1,20 +1,6 @@
 return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  -- "gc" to comment visual regions/lines
-  {
-    'numToStr/Comment.nvim',
-    lazy = false,
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring'
-    },
-    config = function()
-      require('Comment').setup({
-        -- Needed for jsx/tsx files
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
-      })
-    end
-  },
   {
     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
