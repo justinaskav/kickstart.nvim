@@ -5,6 +5,12 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- disable fill chars (the ~ after the buffer)
+vim.o.fillchars = 'eob: '
+
+-- mode is already in statusline
+vim.opt.showmode = false
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!

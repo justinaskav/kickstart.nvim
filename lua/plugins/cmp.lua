@@ -125,10 +125,8 @@ return {
           end, { 'i', 's' }),
         },
         sources = {
-          { name = "pandoc_references",      max_item_count = 7 },
-          { name = "nvim_lsp_signature_help" },
           { name = "otter" }, -- for code chunks in quarto
-          { name = "luasnip",                max_item_count = 5 },
+          { name = "path" },
           {
             name = 'nvim_lsp',
             -- entry_filter = function(entry, ctx)
@@ -136,9 +134,11 @@ return {
             --       entry:get_kind() ~= cmp.lsp.CompletionItemKind.Snippet
             -- end
           },
-          { name = "path" },
+          { name = "nvim_lsp_signature_help" },
+          { name = 'luasnip',                keyword_length = 3, max_item_count = 3 },
+          { name = 'pandoc_references' },
+          { name = 'buffer',                 keyword_length = 5, max_item_count = 3 },
           { name = "emoji" },
-          { name = "buffer", },
           -- { name = "calc" },
           { name = "latex_symbols" },
         },

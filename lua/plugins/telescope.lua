@@ -18,6 +18,17 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
+      {
+        'jmbuhr/telescope-zotero.nvim',
+        enabled = true,
+        dev = false,
+        dependencies = {
+          { 'kkharji/sqlite.lua' },
+        },
+        config = function()
+          vim.keymap.set('n', '<leader>fz', ':Telescope zotero<cr>', { desc = '[z]otero' })
+        end,
+      },
     },
     config = function()
       -- [[ Configure Telescope ]]
@@ -64,6 +75,7 @@ return {
 
       -- Enable telescope fzf native, if installed
       pcall(require('telescope').load_extension, 'fzf')
+      require('telescope').load_extension('zotero')
 
       -- Telescope live_grep in git root
       -- Function to find the git root directory based on the current buffer's path
@@ -104,7 +116,8 @@ return {
 
       -- See `:help telescope.builtin`
       vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-      vim.keymap.set('n', '<leader><leader>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader><leader>', require('telescope.builtin').buffers,
+        { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {

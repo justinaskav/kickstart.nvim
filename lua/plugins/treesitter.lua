@@ -14,7 +14,7 @@ return {
         ---@diagnostic disable-next-line missing-fields
         require('nvim-treesitter.configs').setup {
           -- Add languages to be installed here that you want installed for treesitter
-          ensure_installed = { 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'latex', 'html', 'css', 'astro', 'php', 'phpdoc', 'csv', 'tsv' },
+          ensure_installed = { 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'latex', 'html', 'css', 'astro', 'php', 'phpdoc', 'csv', 'tsv', 'mermaid' },
           auto_install = false,
           highlight = { enable = true, additional_vim_regex_highlighting = false },
           indent = { enable = true },
@@ -30,6 +30,15 @@ return {
                 ['if'] = '@function.inner',
                 ['ac'] = '@class.outer',
                 ['ic'] = '@class.inner',
+              },
+            },
+            incremental_selection = {
+              enable = true,
+              keymaps = {
+                init_selection = 'gnn',
+                node_incremental = 'grn',
+                scope_incremental = 'grc',
+                node_decremental = 'grm',
               },
             },
             move = {
@@ -72,8 +81,8 @@ return {
     'HiPhish/rainbow-delimiters.nvim',
     -- TODO: Need to figure out how to get this to work with treesitter
     enabled = false,
-    config = function ()
-      local rainbow_delimiters = require'rainbow-delimiters'
+    config = function()
+      local rainbow_delimiters = require 'rainbow-delimiters'
 
       vim.g.rainbow_delimiters = {
         strategy = {

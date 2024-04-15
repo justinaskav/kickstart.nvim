@@ -8,7 +8,7 @@ return {
   dependencies = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-
+    { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     {
@@ -35,6 +35,16 @@ return {
     -- before setting up the servers.
     require('mason').setup()
     require('mason-lspconfig').setup()
+
+    require('mason-tool-installer').setup {
+      ensure_installed = {
+        'black',
+        'stylua',
+        'shfmt',
+        'isort',
+        'tree-sitter-cli',
+      },
+    }
 
     -- [[ Configure LSP ]]
     --  This function gets run when an LSP connects to a particular buffer.
@@ -89,6 +99,11 @@ return {
         ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
       }, { prefix = '<leader>' })
     end
+
+    local lsp_flags = {
+      allow_incremental_sync = true,
+      debounce_text_changes = 150,
+    }
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -149,7 +164,8 @@ return {
       -- [core]
       -- markdown.file_extensions = ["md", "markdown", "qmd"]
       marksman = {
-        filetypes = { 'markdown', 'quarto' }
+        filetypes = { 'markdown', 'quarto' },
+        -- root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
       },
       -- pyright = {
       --   python = {
@@ -196,6 +212,7 @@ return {
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
 
     -- Ensure the servers above are installed
     local mason_lspconfig = require 'mason-lspconfig'
@@ -208,6 +225,7 @@ return {
         require('lspconfig')[server_name].setup {
           capabilities = capabilities,
           on_attach = on_attach,
+          flags = lsp_flags,
           settings = servers[server_name],
           filetypes = (servers[server_name] or {}).filetypes,
           init_options = (servers[server_name] or {}).init_options,
@@ -216,6 +234,36 @@ return {
       end,
     }
 
+    -- local lspconfig = require('lspconfig')
+    --
+    -- -- See https://github.com/neovim/neovim/issues/23291
+    -- -- disable lsp watcher.
+    -- -- Too lags on linux for python projects
+    -- -- because pyright and nvim both create too many watchers otherwise
+    -- if capabilities.workspace == nil then
+    --   capabilities.workspace = {}
+    --   capabilities.workspace.didChangeWatchedFiles = {}
+    -- end
+    -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+    --
+    -- lspconfig.pyright.setup {
+    --   capabilities = capabilities,
+    --   flags = lsp_flags,
+    --   settings = {
+    --     python = {
+    --       analysis = {
+    --         autoSearchPaths = true,
+    --         useLibraryCodeForTypes = true,
+    --         diagnosticMode = 'workspace',
+    --       },
+    --     },
+    --   },
+    --   root_dir = function(fname)
+    --     return util.root_pattern('.git', 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt')(fname) or
+    --         util.path.dirname(fname)
+    --   end,
+    -- }
+    --
     require('config.autoformat')
   end
 }
