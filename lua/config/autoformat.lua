@@ -37,15 +37,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local bufnr = args.buf
 
     -- Only attach to clients that support document formatting
-    if not client.server_capabilities.documentFormattingProvider then
-      return
-    end
+    -- if not client.server_capabilities.documentFormattingProvider then
+    --   -- Print message about 
+    --   if not client.name == 'php' then
+    --     return
+    --   end
+    -- end
 
     -- Tsserver usually works poorly. Sorry you work with bad languages
     -- You can remove this line if you know what you're doing :)
-    if client.name == 'tsserver' then
-      return
-    end
+    -- if client.name == 'tsserver' then
+    --   return
+    -- end
 
     -- Create an autocmd that will run *before* we save the buffer.
     --  Run the formatting command for the LSP that has just attached.
@@ -69,9 +72,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Run formatting with keyboard shortcut
     vim.keymap.set('n', '<leader>df', function()
-
       -- Check if filetype is .php, if yes, use formatter.nvim
-      
+
       local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
       if filetype == 'php' then
         -- Run ':Format' command
@@ -83,12 +85,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         return
       end
 
-      vim.lsp.buf.format({
-        async = false,
-        filter = function(c)
-          return c.id == client.id
-        end,
-      })
+      vim.api.nvim_command('LspFormat')
     end, { desc = 'Format current buffer', buffer = bufnr })
   end
 })

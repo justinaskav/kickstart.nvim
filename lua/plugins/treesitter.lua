@@ -76,7 +76,7 @@ return {
     end
   },
   -- This shows the function (context) above
-  "nvim-treesitter/nvim-treesitter-context",
+  -- "nvim-treesitter/nvim-treesitter-context",
   {
     'HiPhish/rainbow-delimiters.nvim',
     -- TODO: Need to figure out how to get this to work with treesitter

@@ -18,17 +18,17 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
-      {
-        'jmbuhr/telescope-zotero.nvim',
-        enabled = true,
-        dev = false,
-        dependencies = {
-          { 'kkharji/sqlite.lua' },
-        },
-        config = function()
-          vim.keymap.set('n', '<leader>fz', ':Telescope zotero<cr>', { desc = '[z]otero' })
-        end,
-      },
+      -- {
+      --   'jmbuhr/telescope-zotero.nvim',
+      --   enabled = true,
+      --   dev = false,
+      --   dependencies = {
+      --     { 'kkharji/sqlite.lua' },
+      --   },
+      --   config = function()
+      --     vim.keymap.set('n', '<leader>fz', ':Telescope zotero<cr>', { desc = '[z]otero' })
+      --   end,
+      -- },
     },
     config = function()
       -- [[ Configure Telescope ]]
@@ -75,7 +75,7 @@ return {
 
       -- Enable telescope fzf native, if installed
       pcall(require('telescope').load_extension, 'fzf')
-      require('telescope').load_extension('zotero')
+      -- require('telescope').load_extension('zotero')
 
       -- Telescope live_grep in git root
       -- Function to find the git root directory based on the current buffer's path

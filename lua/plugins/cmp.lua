@@ -47,6 +47,17 @@ return {
               dismiss = false,
             },
           },
+          filetypes = {
+            yaml = true,
+            markdown = true,
+            help = false,
+            gitcommit = true,
+            gitrebase = false,
+            hgcommit = false,
+            svn = false,
+            cvs = false,
+            ["."] = false,
+          },
         }
       },
     },
