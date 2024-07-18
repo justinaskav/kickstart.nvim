@@ -95,9 +95,10 @@ return {
         vim.lsp.buf.format()
       end, { desc = 'Format current buffer with LSP' })
 
-      require("which-key").register({
-        ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-      }, { prefix = '<leader>' })
+      -- require("which-key").register({
+      --   ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+      -- }, { prefix = '<leader>' })
+      require("which-key").add({ '<leader>d', { group = '[D]ocument' } })
     end
 
     local lsp_flags = {

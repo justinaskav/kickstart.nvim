@@ -95,6 +95,26 @@ return {
       })
     end
   },
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      -- ...,
+      'V13Axel/neotest-pest',
+      { "nvim-neotest/nvim-nio" }
+    },
+    config = function()
+      require('neotest').setup({
+        -- ...,
+        adapters = {
+          require('neotest-pest'),
+        }
+      })
+
+      -- set keys
+      vim.keymap.set("n", "<leader>lt", function () require("neotest").run.run() end, { desc = '[T]est with Laravel Pest (Neotest)' })
+      vim.keymap.set("n", "<leader>lo", function () require("neotest").output.open({ enter = true }) end, { desc = '[O]pen output with Laravel Pest (Neotest)' })
+    end
+  }
   -- {
   --   "luckasRanarison/tailwind-tools.nvim",
   --   opts = {} -- your configuration
