@@ -6,6 +6,7 @@ return {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+    dev = false,
     config = function()
       -- [[ Configure Treesitter ]]
       -- See `:help nvim-treesitter`

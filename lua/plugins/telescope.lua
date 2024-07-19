@@ -66,11 +66,11 @@ return {
             }
           },
         },
-        extensions = {
-          frecency = {
-            show_unindexed = false
-          }
-        }
+        -- extensions = {
+        --   frecency = {
+        --     show_unindexed = false
+        --   }
+        -- }
       }
 
       -- Enable telescope fzf native, if installed
@@ -147,13 +147,13 @@ return {
       vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[S]earch for [K]eymaps' })
     end
   },
-  {
-    "nvim-telescope/telescope-frecency.nvim",
-    config = function()
-      require("telescope").load_extension "frecency"
-
-      vim.keymap.set("n", "<leader>.", "<Cmd>Telescope frecency workspace=CWD<CR>",
-        { desc = '[.] Find most opened files' })
-    end,
-  },
+  -- {
+  --   "nvim-telescope/telescope-frecency.nvim",
+  --   config = function()
+  --     require("telescope").load_extension "frecency"
+  --
+  --     vim.keymap.set("n", "<leader>.", "<Cmd>Telescope frecency workspace=CWD<CR>",
+  --       { desc = '[.] Find most opened files' })
+  --   end,
+  -- },
 }

@@ -32,9 +32,10 @@ return {
 
       vim.keymap.set("n", "<leader>qp", ":QuartoPreview<CR>", { desc = '[P]review Quarto document' })
 
-      require('which-key').register({
-        ['q'] = { name = '[Q]uarto', _ = 'which_key_ignore' }
-      }, { prefix = '<leader>' })
+      require('which-key').add({
+        { "<leader>q",  group = "[Q]uarto" },
+        { "<leader>q_", hidden = true },
+      })
     end,
   },
   -- Some time in the future, when QIIME2 supports Python 3.10 with match statements
