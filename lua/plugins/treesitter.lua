@@ -9,13 +9,29 @@ return {
     dev = false,
     config = function()
       -- [[ Configure Treesitter ]]
+      vim.filetype.add({
+        pattern = {
+          [".*%.blade%.php"] = "blade",
+        },
+      })
+
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+      parser_config.blade = {
+        install_info = {
+          url = "https://github.com/EmranMR/tree-sitter-blade",
+          files = { "src/parser.c" },
+          branch = "main",
+        },
+        filetype = "blade",
+      }
+
       -- See `:help nvim-treesitter`
       -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
       vim.defer_fn(function()
         ---@diagnostic disable-next-line missing-fields
         require('nvim-treesitter.configs').setup {
           -- Add languages to be installed here that you want installed for treesitter
-          ensure_installed = { 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'latex', 'html', 'css', 'astro', 'php', 'phpdoc', 'csv', 'tsv', 'mermaid' },
+          ensure_installed = { 'blade', 'php_only', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'latex', 'html', 'css', 'astro', 'php', 'phpdoc', 'csv', 'tsv', 'mermaid' },
           auto_install = false,
           highlight = { enable = true, additional_vim_regex_highlighting = false },
           indent = { enable = true },

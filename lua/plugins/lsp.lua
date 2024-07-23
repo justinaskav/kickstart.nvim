@@ -118,6 +118,9 @@ return {
 
     local util = require("lspconfig.util")
 
+    local mason_registry = require('mason-registry')
+    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+
     local servers = {
       astro = { filetypes = { 'astro' } },
       bashls = {
@@ -190,8 +193,19 @@ return {
       },
       tailwindcss = {},
       typst_lsp = {},
-      -- Volar instead of tsserver
-      volar = { filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' }, init_options = { vue = { hybridMode = false } } },
+      tsserver = {
+        init_options = {
+          plugins = {
+            {
+              name = '@vue/typescript-plugin',
+              location = vue_language_server_path,
+              languages = { 'vue' },
+            },
+          },
+        },
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      },
+      volar = {},
       yamlls = {
         yaml = {
           schemas = {
