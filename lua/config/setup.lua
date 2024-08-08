@@ -31,7 +31,7 @@ vim.bo.softtabstop = 2
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+-- vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -57,17 +57,17 @@ vim.o.termguicolors = true
 vim.o.scrolloff = 8
 
 if vim.fn.has("wsl") == 1 then
-  vim.g.clipboard = {
-    name = "WslClipboard",
-    copy = {
-      ["+"] = "clip.exe",
-      ["*"] = "clip.exe",
-    },
-
-    paste = {
-      ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    },
-    cache_enable = 0
-  }
+  -- vim.g.clipboard = {
+  --   name = "WslClipboard",
+  --   copy = {
+  --     ["+"] = "clip.exe",
+  --     ["*"] = "clip.exe",
+  --   },
+  --
+  --   paste = {
+  --     ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+  --     ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+  --   },
+  --   cache_enable = 0
+  -- }
 end

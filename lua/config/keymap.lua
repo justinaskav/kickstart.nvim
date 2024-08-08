@@ -11,7 +11,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Diagnostic keymaps
 -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', 'go', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- vim.keymap.set('n', 'go', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 -- Move selected line / block of text in visual mode
 vim.keymap.set('v', "J", ":m '>+1<CR>gv=gv", { silent = true })
@@ -33,10 +33,10 @@ require("which-key").add({
 })
 
 -- For window navigation
-vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
-vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to bottom window' })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to top window' })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
+-- vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
+-- vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to bottom window' })
+-- vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to top window' })
+-- vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 
 -- Split window
 
@@ -48,7 +48,6 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 -- For buffer navigation
 vim.keymap.set('n', '<TAB>', ':bnext<CR>', { desc = 'Move to next buffer' })
 vim.keymap.set('n', '<S-TAB>', ':bprevious<CR>', { desc = 'Move to previous buffer' })
-
 vim.keymap.set("n", "<leader>tt", ":split term://$SHELL<cr>", { desc = "New [T]erminal" })
 vim.keymap.set("n", "<leader>tr", ":split term://R<cr>", { desc = "New [R] terminal" })
 vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
