@@ -8,6 +8,7 @@ return {
   dependencies = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
+    "b0o/schemastore.nvim",
     { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -119,7 +120,8 @@ return {
     local util = require("lspconfig.util")
 
     local mason_registry = require('mason-registry')
-    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
+        '/node_modules/@vue/language-server'
 
     local servers = {
       astro = { filetypes = { 'astro' } },
@@ -144,7 +146,15 @@ return {
           }
         }
       },
-      jsonls = {},
+      jsonls = {
+        filetypes = { "json", "jsonc" },
+        -- settings = {
+        --   json = {
+        --     schemas = require('schemastore').json.schemas(),
+        --     validate = { enable = true },
+        --   },
+        -- }
+      },
       julials = {},
       lua_ls = {
         Lua = {
@@ -193,7 +203,7 @@ return {
       },
       tailwindcss = {},
       typst_lsp = {},
-      tsserver = {
+      ts_ls = {
         init_options = {
           plugins = {
             {
@@ -205,7 +215,15 @@ return {
         },
         filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
       },
-      volar = {},
+      volar = {
+        settings = {
+          volar = {
+            format = {
+              enable = false
+            }
+          }
+        }
+      },
       yamlls = {
         yaml = {
           schemas = {
