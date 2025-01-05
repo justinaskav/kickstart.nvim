@@ -133,6 +133,7 @@ return {
       vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = '[G]it File [S]earch' })
       vim.keymap.set('n', '<leader>gg', ':LiveGrepGitRoot<cr>', { desc = '[G]it Root Search by [G]rep' })
       vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>so', ':TodoTelescope<cr>', { desc = '[S]earch [O]utstanding TODOs' })
       vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>si', require('telescope.builtin').lsp_implementations,
         { desc = '[S]earch [I]mplementations' })

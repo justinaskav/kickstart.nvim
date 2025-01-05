@@ -202,7 +202,7 @@ return {
         }
       },
       tailwindcss = {},
-      typst_lsp = {},
+      tinymist = {},
       ts_ls = {
         init_options = {
           plugins = {
