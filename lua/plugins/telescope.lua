@@ -18,6 +18,7 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
       -- {
       --   'jmbuhr/telescope-zotero.nvim',
       --   enabled = true,
@@ -75,6 +76,7 @@ return {
 
       -- Enable telescope fzf native, if installed
       pcall(require('telescope').load_extension, 'fzf')
+      pcall(require('telescope').load_extension, 'ui-select')
       -- require('telescope').load_extension('zotero')
 
       -- Telescope live_grep in git root

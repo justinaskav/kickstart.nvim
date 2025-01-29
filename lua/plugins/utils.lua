@@ -144,7 +144,19 @@ return {
       vim.keymap.set("n", "<leader>lo", function() require("neotest").output.open({ enter = true }) end,
         { desc = '[O]pen output with Laravel Pest (Neotest)' })
     end
-  }
+  },
+  {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
   -- {
   --   "luckasRanarison/tailwind-tools.nvim",
   --   opts = {} -- your configuration

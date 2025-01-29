@@ -5,6 +5,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = false
+
 -- disable fill chars (the ~ after the buffer)
 vim.o.fillchars = 'eob: '
 
@@ -44,10 +47,10 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 100
+vim.o.updatetime = 150
 vim.o.timeoutlen = 250
 
 -- NOTE: You should make sure your terminal supports this
@@ -55,6 +58,9 @@ vim.o.termguicolors = true
 
 -- Don't scroll down more than 8 lines when scrolling off the screen
 vim.o.scrolloff = 8
+
+-- Preview substitutions live, as you type!
+vim.opt.inccommand = 'split'
 
 if vim.fn.has("wsl") == 1 then
   -- vim.g.clipboard = {

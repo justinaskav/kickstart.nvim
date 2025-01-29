@@ -6,9 +6,10 @@ return {
   branch = "master",
   event = "BufReadPre",
   dependencies = {
-    'williamboman/mason.nvim',
+    { 'williamboman/mason.nvim',                  opts = {} },
     'williamboman/mason-lspconfig.nvim',
     "b0o/schemastore.nvim",
+    "hrsh7th/cmp-nvim-lsp",
     { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -34,18 +35,6 @@ return {
   config = function()
     -- mason-lspconfig requires that these setup functions are called in this order
     -- before setting up the servers.
-    require('mason').setup()
-    require('mason-lspconfig').setup()
-
-    require('mason-tool-installer').setup {
-      ensure_installed = {
-        'black',
-        'stylua',
-        'shfmt',
-        'isort',
-        'tree-sitter-cli',
-      },
-    }
 
     -- [[ Configure LSP ]]
     --  This function gets run when an LSP connects to a particular buffer.
@@ -123,6 +112,10 @@ return {
     local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
         '/node_modules/@vue/language-server'
 
+    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
     local servers = {
       astro = { filetypes = { 'astro' } },
       bashls = {
@@ -148,12 +141,12 @@ return {
       },
       jsonls = {
         filetypes = { "json", "jsonc" },
-        -- settings = {
-        --   json = {
-        --     schemas = require('schemastore').json.schemas(),
-        --     validate = { enable = true },
-        --   },
-        -- }
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        }
       },
       julials = {},
       lua_ls = {
@@ -242,30 +235,39 @@ return {
     -- Setup neovim lua configuration
     require('neodev').setup()
 
-    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-
     -- Ensure the servers above are installed
-    local mason_lspconfig = require 'mason-lspconfig'
-    mason_lspconfig.setup {
-      ensure_installed = vim.tbl_keys(servers),
-    }
+    local ensure_installed = vim.tbl_keys(servers or {})
+    vim.list_extend(ensure_installed, {
+      'black',
+      'stylua',
+      'shfmt',
+      'isort',
+      'tree-sitter-cli',
+    })
 
-    mason_lspconfig.setup_handlers {
-      function(server_name)
-        require('lspconfig')[server_name].setup {
-          capabilities = capabilities,
-          on_attach = on_attach,
-          flags = lsp_flags,
-          settings = servers[server_name],
-          filetypes = (servers[server_name] or {}).filetypes,
-          init_options = (servers[server_name] or {}).init_options,
-          root_dir = (servers[server_name] or {}).root_dir,
-        }
-      end,
-    }
+    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+    require('mason-lspconfig').setup({
+      ensure_installed = {},
+      automatic_installation = false,
+      handlers = {
+        function(server_name)
+          local server = servers[server_name] or {}
+          -- This handles overriding only values explicitly passed
+          -- by the server configuration above. Useful when disabling
+          -- certain features of an LSP (for example, turning off formatting for ts_ls)
+          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+          server.on_attach = on_attach
+          server.flags = lsp_flags
+          -- server.settings = servers[server_name]
+          -- server.filetypes = (servers[server_name] or {}).filetypes
+          -- init_options = (servers[server_name] or {}).init_options
+          -- root_dir = (servers[server_name] or {}).root_dir
+
+          require('lspconfig')[server_name].setup(server)
+        end,
+      }
+    })
 
     -- local lspconfig = require('lspconfig')
     --
@@ -297,6 +299,7 @@ return {
     --   end,
     -- }
     --
+
     require('config.autoformat')
   end
 }
