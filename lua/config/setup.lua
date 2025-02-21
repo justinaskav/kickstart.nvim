@@ -2,8 +2,17 @@
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- remove netrw banner for cleaner looking
+-- vim.g.netrw_banner = 0
+
+vim.g.mapleader = vim.keycode("<space>")
+vim.g.maplocalleader = vim.keycode("<cr>")
+
+-- Fold
+vim.o.foldenable = true   -- enable fold
+vim.o.foldlevel = 99      -- start editing with all folds opened
+vim.o.foldmethod = "expr" -- use tree-sitter for folding method
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
@@ -21,13 +30,18 @@ vim.opt.showmode = false
 vim.o.hlsearch = false
 vim.o.incsearch = true
 
+vim.o.cursorline = true     -- enable cursor line
+
 -- Make line numbers and relative numbering default
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.o.number = true
+vim.o.relativenumber = true
 
 -- Indent
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+vim.o.smartindent = true -- auto-indenting when starting a new line
+vim.o.shiftround = true  -- round indent to multiple of 'shiftwidth'
+vim.o.shiftwidth = 0     -- 0 to follow the 'tabstop' value
+vim.o.tabstop = 4        -- tab width
+
 vim.opt.expandtab = true
 vim.bo.softtabstop = 2
 
@@ -50,14 +64,25 @@ vim.o.smartcase = true
 vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 150
+vim.o.confirm = true     -- show dialog for unsaved file(s) before quit
+vim.o.updatetime = 200   -- save swap file with 200ms debouncing
+
 vim.o.timeoutlen = 250
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+vim.opt.listchars = {       -- NOTE: using `vim.opt` instead of `vim.o` to pass rich object
+    tab = "▏ ",
+    trail = "·",
+    extends = "»",
+    precedes = "«",
+}
+
 -- Don't scroll down more than 8 lines when scrolling off the screen
 vim.o.scrolloff = 8
+
+vim.o.pumheight = 10        -- max height of completion menu
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -77,3 +102,7 @@ if vim.fn.has("wsl") == 1 then
   --   cache_enable = 0
   -- }
 end
+
+-- For Avante, suggested setting
+vim.opt.laststatus = 3 -- views can only be fully collapsed with the global statusline
+

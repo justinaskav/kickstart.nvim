@@ -172,7 +172,7 @@ return {
 
   -- paste an image to markdown from the clipboard
   -- :PasteImg,
-  { "dfendr/clipboard-image.nvim", cmd = "PasteImg" },
+  -- { "dfendr/clipboard-image.nvim", cmd = "PasteImg" },
   {
     -- see the image.nvim readme for more information about configuring this plugin
     --[[ "3rd/image.nvim",

@@ -24,9 +24,6 @@ return {
         }
       }
     },
-
-    -- Additional lua configuration, makes nvim stuff amazing!
-    'folke/neodev.nvim',
     {
       "microsoft/python-type-stubs",
       cond = false
@@ -233,7 +230,7 @@ return {
     }
 
     -- Setup neovim lua configuration
-    require('neodev').setup()
+    require('lazydev').setup()
 
     -- Ensure the servers above are installed
     local ensure_installed = vim.tbl_keys(servers or {})
