@@ -93,7 +93,23 @@ return {
     end
   },
   -- This shows the function (context) above
-  -- "nvim-treesitter/nvim-treesitter-context",
+  "nvim-treesitter/nvim-treesitter-context",
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    config = function()
+      require('ts_context_commentstring').setup {
+        enable_autocmd = false,
+      }
+
+      -- Native commenting as in https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#native-commenting-in-neovim-010
+      local get_option = vim.filetype.get_option
+      vim.filetype.get_option = function(filetype, option)
+        return option == "commentstring"
+            and require("ts_context_commentstring.internal").calculate_commentstring()
+            or get_option(filetype, option)
+      end
+    end
+  },
   {
     'HiPhish/rainbow-delimiters.nvim',
     -- TODO: Need to figure out how to get this to work with treesitter

@@ -104,5 +104,5 @@ if vim.fn.has("wsl") == 1 then
 end
 
 -- For Avante, suggested setting
-vim.opt.laststatus = 3 -- views can only be fully collapsed with the global statusline
+-- vim.opt.laststatus = 3 -- views can only be fully collapsed with the global statusline
 
