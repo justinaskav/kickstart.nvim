@@ -31,7 +31,7 @@ return {
         ---@diagnostic disable-next-line missing-fields
         require('nvim-treesitter.configs').setup {
           -- Add languages to be installed here that you want installed for treesitter
-          ensure_installed = { 'blade', 'php_only', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'latex', 'html', 'css', 'astro', 'php', 'phpdoc', 'csv', 'tsv', 'mermaid' },
+          ensure_installed = { 'blade', 'php_only', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'latex', 'html', 'css', 'astro', 'php', 'phpdoc', 'csv', 'tsv', 'mermaid', 'typst' },
           auto_install = false,
           highlight = { enable = true, additional_vim_regex_highlighting = false },
           indent = { enable = true },
@@ -93,7 +93,7 @@ return {
     end
   },
   -- This shows the function (context) above
-  "nvim-treesitter/nvim-treesitter-context",
+  -- "nvim-treesitter/nvim-treesitter-context",
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     config = function()

@@ -1,4 +1,5 @@
-local vault_path = "/Users/justinas/Thinking"
+local vault_path = "/Users/justinas/Obsidian/Thinking"
+local vault_path2 = "/Users/justinas/Obsidian/Science"
 
 return {
   "epwalsh/obsidian.nvim",
@@ -11,6 +12,8 @@ return {
     --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
     "BufReadPre " .. vault_path .. "/**.md",
     "BufNewFile " .. vault_path .. "/**.md",
+    "BufReadPre " .. vault_path2 .. "/**.md",
+    "BufNewFile " .. vault_path2 .. "/**.md",
   },
   dependencies = {
     -- Required.
@@ -23,6 +26,10 @@ return {
       {
         name = "Thinking",
         path = vault_path,
+      },
+      {
+        name = "Science",
+        path = vault_path2,
       },
     },
     -- completion = {
