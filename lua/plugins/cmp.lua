@@ -90,9 +90,9 @@ return {
         completion = { completeopt = 'menu,menuone,noinsert', },
         view = { entries = 'native', },
         window = {
-          documentation = {
-            border = require("misc.style").border,
-          },
+          -- documentation = {
+          --   border = require("misc.style").border,
+          -- },
         },
         formatting = { format = lspkind.cmp_format({}) },
         snippet = {

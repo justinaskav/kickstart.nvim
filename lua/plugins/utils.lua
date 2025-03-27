@@ -27,12 +27,12 @@ return {
       { "<leader>vu", ":UndotreeToggle<CR>", noremap = true, desc = "Toggle [U]ndo Tree" },
     }
   },
-  {
-    "chrishrb/gx.nvim",
-    event = "BufEnter",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,
-  },
+  -- {
+  --   "chrishrb/gx.nvim",
+  --   event = "BufEnter",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   config = true,
+  -- },
   {
     -- Terminal in Neovim
     "akinsho/toggleterm.nvim",

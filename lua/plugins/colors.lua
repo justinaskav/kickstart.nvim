@@ -22,7 +22,7 @@ return {
       })
 
       vim.cmd [[colorscheme tokyonight]]
-      vim.cmd [[highlight CodeBlock guibg=#272731]]
+      vim.cmd [[highlight CodeBlock guibg=#242431]]
     end,
   },
   {

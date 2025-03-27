@@ -15,22 +15,22 @@ vim.o.foldmethod = "expr" -- use tree-sitter for folding method
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- disable fill chars (the ~ after the buffer)
-vim.o.fillchars = 'eob: '
+-- vim.o.fillchars = 'eob: '
 
 -- mode is already in statusline
-vim.opt.showmode = false
+vim.o.showmode = false
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 vim.o.incsearch = true
 
-vim.o.cursorline = true     -- enable cursor line
+vim.o.cursorline = true -- enable cursor line
 
 -- Make line numbers and relative numbering default
 vim.o.number = true
@@ -42,7 +42,7 @@ vim.o.shiftround = true  -- round indent to multiple of 'shiftwidth'
 vim.o.shiftwidth = 0     -- 0 to follow the 'tabstop' value
 vim.o.tabstop = 4        -- tab width
 
-vim.opt.expandtab = true
+vim.o.expandtab = true
 vim.bo.softtabstop = 2
 
 -- Sync clipboard between OS and Neovim.
@@ -61,28 +61,28 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+vim.o.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.confirm = true     -- show dialog for unsaved file(s) before quit
-vim.o.updatetime = 200   -- save swap file with 200ms debouncing
+-- vim.o.confirm = true     -- show dialog for unsaved file(s) before quit
+vim.o.updatetime = 200 -- save swap file with 200ms debouncing
 
 vim.o.timeoutlen = 250
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.opt.listchars = {       -- NOTE: using `vim.opt` instead of `vim.o` to pass rich object
-    tab = "▏ ",
-    trail = "·",
-    extends = "»",
-    precedes = "«",
+vim.opt.listchars = { -- NOTE: using `vim.opt` instead of `vim.o` to pass rich object
+  tab = "▏ ",
+  trail = "·",
+  extends = "»",
+  precedes = "«",
 }
 
 -- Don't scroll down more than 8 lines when scrolling off the screen
 vim.o.scrolloff = 8
 
-vim.o.pumheight = 10        -- max height of completion menu
+vim.o.pumheight = 12 -- max height of completion menu
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -106,3 +106,21 @@ end
 -- For Avante, suggested setting
 -- vim.opt.laststatus = 3 -- views can only be fully collapsed with the global statusline
 
+-- If nvim 0.11.0 or later
+if vim.fn.has("nvim-0.11") == 1 then
+  vim.o.winborder = 'rounded'
+
+  -- As per https://github.com/nvim-telescope/telescope.nvim/issues/3436
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "TelescopeFindPre",
+    callback = function()
+      vim.opt_local.winborder = "none"
+      vim.api.nvim_create_autocmd("WinLeave", {
+        once = true,
+        callback = function()
+          vim.opt_local.winborder = "rounded"
+        end,
+      })
+    end,
+  })
+end

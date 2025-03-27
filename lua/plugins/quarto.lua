@@ -11,11 +11,11 @@ return {
           { "neovim/nvim-lspconfig" },
         },
         opts = {
-          lsp = {
-            hover = {
-              border = require("misc.style").border,
-            },
-          },
+          -- lsp = {
+          --   hover = {
+          --     border = require("misc.style").border,
+          --   },
+          -- },
           buffers = {
             set_filetype = true,
           },
@@ -81,7 +81,7 @@ return {
         },
       })
     end
-  },
+},
 
   -- send code from python/r/qmd documets to a terminal or REPL
   -- like ipython, R, bash

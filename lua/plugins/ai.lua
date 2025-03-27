@@ -18,7 +18,7 @@ return {
     vendors = {
       ["gemini-exp"] = {
         __inherited_from = "gemini",
-        model = "gemini-2.0-flash-thinking-exp-01-21",
+        model = "gemini-2.5-pro-exp-03-25",
       },
     }
   },

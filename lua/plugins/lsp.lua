@@ -120,6 +120,14 @@ return {
       },
       cssls = { filetypes = { 'css', 'scss', 'less', 'sass' } },
       eslint = {},
+      -- harper_ls = {
+      --   settings = {
+      --     linters = {
+      --       SentenceCapitalization = false,
+      --       SpellCheck = false
+      --     }
+      --   }
+      -- },
       html = { filetypes = { 'html', 'twig', 'hbs' } },
       intelephense = {
         -- Instead of HOME, put intelephense folder in XDG_DATA_HOME
@@ -191,6 +199,22 @@ return {
           rich_documentation = false,
         }
       },
+      rust_analyzer = {
+        filetypes = { 'rust' },
+        settings = {
+          ["rust-analyzer"] = {
+            checkOnSave = {
+              command = "clippy",
+            },
+            cargo = {
+              loadOutDirsFromCheck = true,
+            },
+            procMacro = {
+              enable = true,
+            },
+          },
+        },
+      },
       tailwindcss = {},
       tinymist = {},
       ts_ls = {
@@ -202,6 +226,10 @@ return {
               languages = { 'vue' },
             },
           },
+        },
+        -- https://github.com/LazyVim/LazyVim/discussions/1124
+        preferences = {
+          importModuleSpecifierPreference = 'relative',
         },
         filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
       },
