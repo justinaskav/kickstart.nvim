@@ -124,3 +124,5 @@ if vim.fn.has("nvim-0.11") == 1 then
     end,
   })
 end
+
+vim.diagnostic.config({ virtual_text = true })

@@ -1,15 +1,27 @@
 return {
+    {
+      'j-hui/fidget.nvim',
+      tag = "v1.1.0",
+      opts = {
+        notification = {
+          window = {
+            winblend = 80,
+          },
+        }
+      }
+    },
+    {
   -- LSP Configuration & Plugins
+  -- NOTE: keep for the utilities
   'neovim/nvim-lspconfig',
+  enabled = false,
   tag = nil,
   version = nil,
   branch = "master",
   event = "BufReadPre",
   dependencies = {
-    { 'williamboman/mason.nvim',                  opts = {} },
     'williamboman/mason-lspconfig.nvim',
-    "b0o/schemastore.nvim",
-    "hrsh7th/cmp-nvim-lsp",
+    -- "hrsh7th/cmp-nvim-lsp",
     { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -50,24 +62,24 @@ return {
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
       end
 
-      nmap('<leader>dr', vim.lsp.buf.rename, '[R]ename')
-      nmap('<leader>da', vim.lsp.buf.code_action, 'Code [A]ction')
-
-      nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-      nmap('<leader>dr', require('telescope.builtin').lsp_references, 'Go To [R]eferences')
-      nmap('<leader>dI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-      nmap('<leader>dd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+      -- nmap('<leader>dc', vim.lsp.buf.rename, '[R]ename')
+      -- nmap('<leader>da', vim.lsp.buf.code_action, 'Code [A]ction')
+      --
+      -- nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+      -- nmap('<leader>dr', require('telescope.builtin').lsp_references, 'Go To [R]eferences')
+      -- nmap('<leader>dI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+      -- nmap('<leader>dd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
       -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
-      vim.keymap.set('n', '<leader>dq', function() require("trouble").toggle("quickfix") end,
-        { desc = 'Trouble: Open [Q]uickfix' })
-      vim.keymap.set('n', '<leader>dl', function() require("trouble").toggle("workspace_diagnostics") end,
-        { desc = 'Trouble: Open [L]ist of diagnostics' })
+      -- vim.keymap.set('n', '<leader>dq', function() require("trouble").toggle("quickfix") end,
+      --   { desc = 'Trouble: Open [Q]uickfix' })
+      -- vim.keymap.set('n', '<leader>dl', function() require("trouble").toggle("workspace_diagnostics") end,
+      --   { desc = 'Trouble: Open [L]ist of diagnostics' })
       -- No need for document symbols
       -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
       -- See `:help K` for why this keymap
-      nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-      nmap('<leader>dk', vim.lsp.buf.signature_help, 'Signature Documentation')
+      -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+      -- nmap('<leader>dk', vim.lsp.buf.signature_help, 'Signature Documentation')
 
       -- Lesser used LSP functionality
       -- nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -93,22 +105,6 @@ return {
       debounce_text_changes = 150,
     }
 
-    -- Enable the following language servers
-    --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-    --
-    --  Add any additional override configuration in the following tables. They will be passed to
-    --  the `settings` field of the server config. You must look up that documentation yourself.
-    --
-    --  If you want to override the default filetypes that your language server will attach to you can
-    --  define the property 'filetypes' to the map in question.
-    local lua_plugin_paths = {}
-
-    local util = require("lspconfig.util")
-
-    local mason_registry = require('mason-registry')
-    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-        '/node_modules/@vue/language-server'
-
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
@@ -118,8 +114,6 @@ return {
       bashls = {
         filetypes = { 'sh', 'bash', 'zsh' }
       },
-      cssls = { filetypes = { 'css', 'scss', 'less', 'sass' } },
-      eslint = {},
       -- harper_ls = {
       --   settings = {
       --     linters = {
@@ -144,41 +138,7 @@ return {
           }
         }
       },
-      jsonls = {
-        filetypes = { "json", "jsonc" },
-        settings = {
-          json = {
-            schemas = require('schemastore').json.schemas(),
-            validate = { enable = true },
-          },
-        }
-      },
       julials = {},
-      lua_ls = {
-        Lua = {
-          completion = {
-            callSnippet = "Replace",
-          },
-          runtime = {
-            version = "LuaJIT",
-            plugin = lua_plugin_paths,
-          },
-          diagnostics = {
-            globals = { "vim", "quarto", "pandoc", "io", "string", "print", "require", "table" },
-            disable = { "trailing-space" },
-          },
-          workspace = { checkThirdParty = false },
-          telemetry = { enable = false },
-        },
-      },
-      -- also needs:
-      -- $home/.config/marksman/config.toml :
-      -- [core]
-      -- markdown.file_extensions = ["md", "markdown", "qmd"]
-      marksman = {
-        filetypes = { 'markdown', 'quarto' },
-        -- root_dir = util.root_pattern('.git', '.marksman.toml', '_quarto.yml'),
-      },
       -- pyright = {
       --   python = {
       --     stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
@@ -217,31 +177,6 @@ return {
       },
       tailwindcss = {},
       tinymist = {},
-      ts_ls = {
-        init_options = {
-          plugins = {
-            {
-              name = '@vue/typescript-plugin',
-              location = vue_language_server_path,
-              languages = { 'vue' },
-            },
-          },
-        },
-        -- https://github.com/LazyVim/LazyVim/discussions/1124
-        preferences = {
-          importModuleSpecifierPreference = 'relative',
-        },
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-      },
-      volar = {
-        settings = {
-          volar = {
-            format = {
-              enable = false
-            }
-          }
-        }
-      },
       yamlls = {
         yaml = {
           schemas = {
@@ -263,18 +198,10 @@ return {
     -- Ensure the servers above are installed
     local ensure_installed = vim.tbl_keys(servers or {})
 
-    vim.list_extend(ensure_installed, {
-      'black',
-      'stylua',
-      'shfmt',
-      'isort',
-      'tree-sitter-cli',
-    })
-
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup({
-      ensure_installed = {},
+      ensure_installed = ensure_installed,
       automatic_installation = false,
       handlers = {
         function(server_name)
@@ -328,4 +255,5 @@ return {
 
     require('config.autoformat')
   end
+}
 }

@@ -1,6 +1,8 @@
 require('config.setup')
 require('config.lazy')
 require('config.keymap')
+require('config.lsp')
+require('config.autoformat')
 require('config.yankHighlight')
 
 -- The line beneath this is called `modeline`. See `:help modeline`

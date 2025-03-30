@@ -8,19 +8,40 @@ return {
     -- add any opts here
     -- for example
     provider = "gemini",
+    cursor_applying_provider = "gemini",
     gemini = {
       endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
       model = "gemini-2.0-flash",
-      timeout = 30000,   -- Timeout in milliseconds
+      timeout = 30000, -- Timeout in milliseconds
       temperature = 0,
-      max_tokens = 32468,
+      max_tokens = 8192,
     },
     vendors = {
       ["gemini-exp"] = {
         __inherited_from = "gemini",
         model = "gemini-2.5-pro-exp-03-25",
+        max_tokens = 65536
       },
+      ["ollama-qwen"] = {
+        __inherited_from = "ollama",
+        model = "qwen2.5-coder:14b",
+        -- max_tokens = 32768
+      }
+    },
+    web_search_engine = {
+      provider = "google", -- tavily, serpapi, searchapi, google or kagi
     }
+    -- rag_service = {
+    --   -- Enable only on windows
+    --   enabled = function ()
+    --     return vim.fn.has("win32") == 1
+    --   end,
+    --   host_mount = os.getenv("HOME"), -- Host mount path for the rag service
+    --   provider = "ollama", -- The provider to use for RAG service (e.g. openai or ollama)
+    --   llm_model = "qwen2.5-coder:14b", -- The LLM model to use for RAG service
+    --   embed_model = "nomic-embed-text", -- The embedding model to use for RAG service
+    --   endpoint = "http://localhost:11434", -- The API endpoint for RAG service
+    -- },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",

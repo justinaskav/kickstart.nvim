@@ -34,6 +34,12 @@ return {
         section_separators = '',
       },
       sections = {
+        lualine_c = {
+          {
+            "filename",
+            path = 1,
+          },
+        },
         lualine_x = {
           function()
             local ok, pomo = pcall(require, "pomo")

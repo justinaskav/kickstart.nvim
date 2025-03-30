@@ -8,18 +8,15 @@ return {
         "jmbuhr/otter.nvim",
         dev = false,
         dependencies = {
-          { "neovim/nvim-lspconfig" },
+          {
+            'neovim/nvim-lspconfig',
+            'nvim-treesitter/nvim-treesitter',
+          },
         },
         opts = {
-          -- lsp = {
-          --   hover = {
-          --     border = require("misc.style").border,
-          --   },
-          -- },
-          buffers = {
-            set_filetype = true,
-          },
-          handle_leading_whitespace = true,
+          verbose = {
+            no_code_found = false,
+          }
         },
       },
     },
@@ -81,7 +78,7 @@ return {
         },
       })
     end
-},
+  },
 
   -- send code from python/r/qmd documets to a terminal or REPL
   -- like ipython, R, bash
