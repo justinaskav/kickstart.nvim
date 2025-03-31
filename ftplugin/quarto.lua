@@ -21,12 +21,6 @@ vim.api.nvim_set_hl(ns, '@markup.strikethrough', { strikethrough = false })
 vim.api.nvim_set_hl(ns, '@markup.doublestrikethrough', { strikethrough = true })
 vim.api.nvim_win_set_hl_ns(0, ns)
 
--- ts based code chunk highlighting uses a change
--- only availabl in nvim >= 0.10
-if vim.fn.has 'nvim-0.10.0' == 0 then
-  return
-end
-
 -- highlight code cells similar to
 -- 'lukas-reineke/headlines.nvim'
 -- (disabled in lua/plugins/ui.lua)
@@ -73,10 +67,10 @@ local function highlight_cells()
   end
 end
 
-highlight_cells()
+-- highlight_cells()
 
-vim.api.nvim_create_autocmd({ 'ModeChanged', 'BufWrite' }, {
-  group = vim.api.nvim_create_augroup('QuartoCellHighlight', { clear = true }),
-  buffer = buf,
-  callback = highlight_cells,
-})
+-- vim.api.nvim_create_autocmd({ 'ModeChanged', 'BufWrite' }, {
+--   group = vim.api.nvim_create_augroup('QuartoCellHighlight', { clear = true }),
+--   buffer = buf,
+--   callback = highlight_cells,
+-- })

@@ -2,44 +2,17 @@ return {
   -- Autocompletion
   {
     'saghen/blink.cmp',
+    event = { "UIEnter" },
     -- optional: provides snippets for the snippet source
     dependencies = {
       -- 'rafamadriz/friendly-snippets',
       {
         "etiennecollin/cmp-pandoc-references",
+        'Kaiser-Yang/blink-cmp-avante',
         branch = "adding-typst-support"
       },
-
-      {
-        "zbirenbaum/copilot.lua",
-        opts = {
-          panel = { enabled = false },
-          suggestion = {
-            enabled = true,
-            auto_trigger = true,
-            debounce = 75,
-            keymap = {
-              accept = "<C-l>",
-              accept_word = false,
-              accept_line = false,
-              prev = false,
-              next = "<C-]>",
-              dismiss = false,
-            },
-          },
-          filetypes = {
-            yaml = true,
-            markdown = true,
-            help = false,
-            gitcommit = true,
-            gitrebase = false,
-            hgcommit = false,
-            svn = false,
-            cvs = false,
-            ["."] = false,
-          },
-        }
-      },
+      "moyiz/blink-emoji.nvim",
+      "mikavilpas/blink-ripgrep.nvim"
     },
     -- use a release tag to download pre-built binaries
     version = '*',
@@ -61,7 +34,13 @@ return {
       -- See :h blink-cmp-config-keymap for defining your own keymap
       keymap = { preset = 'enter' },
 
-      signature = { window = { border = 'single' } },
+      signature = {
+        enabled = true,
+        window = {
+          border = 'single',
+          show_documentation = false
+        }
+      },
 
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -72,11 +51,8 @@ return {
       completion = {
         menu = { border = 'none' },
         documentation = {
-          window = {
-            border = "none"
-          },
           -- (Default) Only show the documentation popup when manually triggered
-          auto_show = false
+          auto_show = true
         }
       },
 
@@ -84,17 +60,36 @@ return {
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         providers = {
-          references = {
-            name = "pandoc_references",
-            module = "cmp-pandoc-references.blink",
+          references = { name = "pandoc_references", module = "cmp-pandoc-references.blink", },
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink", -- make lazydev completions top priority (see `:h blink.cmp`)
+            score_offset = 100,
+          },
+          emoji = {
+            module = "blink-emoji",
+            name = "Emoji",
+            score_offset = -15,        -- Tune by preference
+            max_items = 5,    -- Max number of emojis to show
+            opts = { insert = true }, -- Insert emoji (default) or complete its name
+          },
+          avante = {
+            module = 'blink-cmp-avante',
+            name = 'Avante',
+            opts = {
+              -- options for blink-cmp-avante
+            }
+          },
+          ripgrep = {
+            module = "blink-ripgrep",
+            name = "Ripgrep",
+            -- the options below are optional, some default values are shown
+            ---@module "blink-ripgrep"
+            ---@type blink-ripgrep.Options
+            opts = {}
           },
         },
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'references' },
-        -- per_filetype = {
-        --   markdown = { 'lsp', 'path', 'snippets', 'buffer', 'references' },
-        --   quarto = { 'lsp', 'path', 'snippets', 'buffer', 'references' },
-        --   typst = { 'lsp', 'path', 'snippets', 'buffer', 'references' },
-        -- },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'references', 'lazydev', 'emoji', 'avante', 'ripgrep' },
       },
 
       -- See the fuzzy documentation for more information
@@ -111,13 +106,8 @@ return {
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       { "hrsh7th/cmp-nvim-lsp-signature-help" },
-      { "hrsh7th/cmp-emoji" },
       -- { "hrsh7th/cmp-calc" },
       { "saadparwaiz1/cmp_luasnip" },
-      -- { "f3fora/cmp-spell" },
-      -- { "ray-x/cmp-treesitter" },
-      { "kdheepak/cmp-latex-symbols" },
-      { "jmbuhr/cmp-pandoc-references" },
       {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
@@ -132,36 +122,6 @@ return {
       },
       -- Pictograms
       'onsails/lspkind-nvim',
-      {
-        "zbirenbaum/copilot.lua",
-        opts = {
-          panel = { enabled = false },
-          suggestion = {
-            enabled = true,
-            auto_trigger = true,
-            debounce = 75,
-            keymap = {
-              accept = "<C-l>",
-              accept_word = false,
-              accept_line = false,
-              prev = false,
-              next = "<C-]>",
-              dismiss = false,
-            },
-          },
-          filetypes = {
-            yaml = true,
-            markdown = true,
-            help = false,
-            gitcommit = true,
-            gitrebase = false,
-            hgcommit = false,
-            svn = false,
-            cvs = false,
-            ["."] = false,
-          },
-        }
-      },
     },
     config = function()
       -- [[ Configure nvim-cmp ]]

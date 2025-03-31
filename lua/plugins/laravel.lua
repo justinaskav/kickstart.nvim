@@ -3,21 +3,28 @@ return {
   -- from Neovim.
   "adalessa/laravel.nvim",
   dependencies = {
-    "nvim-telescope/telescope.nvim",
     "tpope/vim-dotenv",
+    "nvim-telescope/telescope.nvim",
     "MunifTanjim/nui.nvim",
+    "kevinhwang91/promise-async",
   },
-  tag = "v2.2.1",
+  ft = { "php", "vue" },
   cmd = { "Sail", "Artisan", "Composer", "Npm", "Yarn", "Laravel" },
-  keys = {
-    { "<leader>la", ":Laravel artisan<cr>" },
-    { "<leader>lr", ":Laravel routes<cr>" },
-    { "<leader>lm", ":Laravel related<cr>" },
-  },
-  event = { "VeryLazy" },
-  config = true,
+  -- event = { "VeryLazy" },
   opts = {
     lsp_server = "intelephense",
     features = { null_ls = { enable = false } },
   },
+  config = function(_, opts)
+    require("laravel").setup(opts)
+
+    vim.keymap.set("n", "<leader>la",
+      ":Laravel artisan<CR>", { desc = "[L]aravel [A]rtisan" })
+
+    vim.keymap.set("n", "<leader>lt",
+      ":Laravel tinker<CR>", { desc = "[L]aravel [T]inker" })
+
+    vim.keymap.set("n", "<leader>lR",
+      ":Laravel routes<CR>", { desc = "[L]aravel [R]outes" })
+  end
 }

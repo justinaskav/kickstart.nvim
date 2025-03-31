@@ -21,6 +21,17 @@ vim.keymap.set('v', "K", ":m '<-2<CR>gv=gv", { silent = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Scroll down and center' })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll up and center' })
 
+-- For buffer navigation
+-- vim.keymap.set('n', '<TAB>', ':bnext<CR>', { desc = 'Move to next buffer' })
+-- vim.keymap.set('n', '<S-TAB>', ':bprevious<CR>', { desc = 'Move to previous buffer' })
+vim.keymap.set("n", "<leader>tt", ":split term://$SHELL<cr>", { desc = "New [T]erminal" })
+vim.keymap.set("n", "<leader>tr", ":split term://R<cr>", { desc = "New [R] terminal" })
+vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
+vim.keymap.set("n", "<leader>ti", ":split term://ipython<cr>", { desc = "New [I]Python terminal" })
+vim.keymap.set("n", "<leader>tv", ":vsplit term://ipython<cr> <C-w>L :vert res 80<cr>",
+	{ desc = "New [V]ertical IPython terminal" })
+vim.keymap.set("n", "<leader>tj", ":split term://julia<cr>", { desc = "New [J]ulia terminal" })
+
 require("which-key").add({
 	{ "<leader>g",  group = "[G]it" },
 	{ "<leader>g_", hidden = true },
@@ -30,6 +41,12 @@ require("which-key").add({
 	{ "<leader>s_", hidden = true },
 	{ "<leader>v",  group = "[V]im Plugins" },
 	{ "<leader>v_", hidden = true },
+	{ "<leader>x",  group = "[X] Trouble" },
+	{ "<leader>x_", hidden = true },
+	{ "<leader>l",  group = "[L]aravel" },
+	{ "<leader>l_", hidden = true },
+	{ "<leader>t",  group = "[T]erminal" },
+	{ "<leader>t_", hidden = true },
 })
 
 -- For window navigation
@@ -44,19 +61,3 @@ require("which-key").add({
 -- vim.keymap.set('n', '<C-J>', ':belowright new<CR>', { desc = 'Split window down' })
 -- vim.keymap.set('n', '<C-K>', ':aboveleft new<CR>', { desc = 'Split window up' })
 -- vim.keymap.set('n', '<C-L>', ':rightbelow vnew<CR>', { desc = 'Split window right' })
-
--- For buffer navigation
-vim.keymap.set('n', '<TAB>', ':bnext<CR>', { desc = 'Move to next buffer' })
-vim.keymap.set('n', '<S-TAB>', ':bprevious<CR>', { desc = 'Move to previous buffer' })
-vim.keymap.set("n", "<leader>tt", ":split term://$SHELL<cr>", { desc = "New [T]erminal" })
-vim.keymap.set("n", "<leader>tr", ":split term://R<cr>", { desc = "New [R] terminal" })
-vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
-vim.keymap.set("n", "<leader>ti", ":split term://ipython<cr>", { desc = "New [I]Python terminal" })
-vim.keymap.set("n", "<leader>tv", ":vsplit term://ipython<cr> <C-w>L :vert res 80<cr>",
-	{ desc = "New [V]ertical IPython terminal" })
-vim.keymap.set("n", "<leader>tj", ":split term://julia<cr>", { desc = "New [J]ulia terminal" })
-
-require("which-key").add({
-	{ "<leader>t",  group = "[T]erminal" },
-	{ "<leader>t_", hidden = true },
-})

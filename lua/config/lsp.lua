@@ -1,5 +1,4 @@
 -- Copied from https://github.com/AdrielVelazquez/nixos-config/blob/testing-new-neovim-lsp/dotfiles/sample-lsp-config/lua/config/lsp.lua
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
 	callback = function(event)
@@ -48,7 +47,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		--   ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
 		-- }, { prefix = '<leader>' })
 		require("which-key").add({
-			{ '<leader>d',  { group = '[D]ocument' } },
+			{ '<leader>d',  group = '[D]ocument' },
 			{ '<leader>d_', hidden = true }
 		})
 		-- vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
@@ -76,11 +75,23 @@ local capabilities = {
 capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 -- Setup language servers.
-
 vim.lsp.config("*", {
 	capabilities = capabilities,
 	root_markers = { ".git" },
 })
+
+-- Merge tables
+
+local function merge_tables(t1, t2)
+	local merged = {}
+	for k, v in pairs(t1) do
+		merged[k] = v
+	end
+	for k, v in pairs(t2) do
+		merged[k] = v
+	end
+	return merged
+end
 
 local lsps = {
 	"astro-language-server",
@@ -92,7 +103,9 @@ local lsps = {
 	"json-lsp",
 	"lua-language-server",
 	"marksman",
+	"pyright",
 	"r-languageserver",
+	"ruff",
 	"tailwindcss-language-server",
 	"tinymist",
 	"typescript-language-server",
@@ -100,7 +113,11 @@ local lsps = {
 	"yaml-language-server",
 }
 
-require('mason-tool-installer').setup { ensure_installed = lsps }
+local formatters = {
+	"pint"
+}
+
+require('mason-tool-installer').setup { ensure_installed = merge_tables(lsps, formatters) }
 
 -- Enable each language server by filename under the lsp/ folder
 vim.lsp.enable(lsps)

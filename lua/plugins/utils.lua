@@ -1,9 +1,35 @@
 return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
-  'b0o/schemastore.nvim',
-  { 'williamboman/mason.nvim',                  opts = {} },
+  {
+    -- Make sure to set this up properly if you have lazy=true
+    'MeanderingProgrammer/render-markdown.nvim',
+    opts = {
+      file_types = { "markdown", "Avante", "quarto" },
+      heading = { position = 'inline' },
+      html = { comment = { conceal = false } },
+      anti_conceal = {
+        enabled = true,
+        -- Which elements to always show, ignoring anti conceal behavior. Values can either be booleans
+        -- to fix the behavior or string lists representing modes where anti conceal behavior will be
+        -- ignored. Possible keys are:
+        --  head_icon, head_background, head_border, code_language, code_background, code_border
+        --  dash, bullet, check_icon, check_scope, quote, table_border, callout, link, sign
+        ignore = {
+            code_background = true,
+            sign = true,
+        },
+        above = 1,
+        below = 1,
+    },
+    },
+    ft = { "markdown", "Avante", "quarto" },
+  },
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    dependencies = { 'williamboman/mason.nvim', opts = {} }
+  },
+  { 'b0o/schemastore.nvim', ft = { 'json' } },
   -- Add a bottom right loading notification
   {
     'j-hui/fidget.nvim',
@@ -72,16 +98,16 @@ return {
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
         desc = "Buffer Diagnostics (Trouble)",
       },
-      {
-        "<leader>cs",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols (Trouble)",
-      },
-      {
-        "<leader>cl",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP Definitions / references / ... (Trouble)",
-      },
+      -- {
+      --   "<leader>cs",
+      --   "<cmd>Trouble symbols toggle focus=false<cr>",
+      --   desc = "Symbols (Trouble)",
+      -- },
+      -- {
+      --   "<leader>cl",
+      --   "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+      --   desc = "LSP Definitions / references / ... (Trouble)",
+      -- },
       {
         "<leader>xL",
         "<cmd>Trouble loclist toggle<cr>",
@@ -97,11 +123,11 @@ return {
   {
     "epwalsh/pomo.nvim",
     version = "*", -- Recommended, use latest release instead of latest commit
-    lazy = true,
-    cmd = { "TimerStart", "TimerRepeat" },
-    opts = {
-      -- See below for full list of options 👇
+    -- cmd = { "TimerStart", "TimerRepeat" },
+    keys = {
+      { "<leader>vp", ":TimerStart 25m<CR>", noremap = true, desc = "Start [P]omodoro Timer" },
     },
+    opts = {}
   },
   {
     "danymat/neogen",
