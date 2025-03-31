@@ -1,6 +1,21 @@
 return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+  { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+  'b0o/schemastore.nvim',
+  { 'williamboman/mason.nvim',                  opts = {} },
+  -- Add a bottom right loading notification
+  {
+    'j-hui/fidget.nvim',
+    tag = "v1.1.0",
+    opts = {
+      notification = {
+        window = {
+          winblend = 80,
+        },
+      }
+    }
+  },
   {
     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',

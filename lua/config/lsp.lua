@@ -47,9 +47,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- require("which-key").register({
 		--   ['d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
 		-- }, { prefix = '<leader>' })
-		require("which-key").add({ 
-			{'<leader>d', { group = '[D]ocument' }}, 
-			{'<leader>d_', hidden = true}
+		require("which-key").add({
+			{ '<leader>d',  { group = '[D]ocument' } },
+			{ '<leader>d_', hidden = true }
 		})
 		-- vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
 		-- vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
@@ -82,5 +82,25 @@ vim.lsp.config("*", {
 	root_markers = { ".git" },
 })
 
+local lsps = {
+	"astro-language-server",
+	"bash-language-server",
+	"css-lsp",
+	"eslint-lsp",
+	"html-lsp",
+	"intelephense",
+	"json-lsp",
+	"lua-language-server",
+	"marksman",
+	"r-languageserver",
+	"tailwindcss-language-server",
+	"tinymist",
+	"typescript-language-server",
+	"vue-language-server",
+	"yaml-language-server",
+}
+
+require('mason-tool-installer').setup { ensure_installed = lsps }
+
 -- Enable each language server by filename under the lsp/ folder
-vim.lsp.enable({ "marksman", "jsonls", "lua_ls", "eslint", "volar", "ts_ls", "cssls", "intelephense" })
+vim.lsp.enable(lsps)
