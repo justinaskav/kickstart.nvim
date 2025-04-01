@@ -7,7 +7,7 @@ return {
     dependencies = {
       -- 'rafamadriz/friendly-snippets',
       {
-        "etiennecollin/cmp-pandoc-references",
+        "jmbuhr/cmp-pandoc-references",
         'Kaiser-Yang/blink-cmp-avante',
         branch = "adding-typst-support"
       },
@@ -80,16 +80,16 @@ return {
               -- options for blink-cmp-avante
             }
           },
-          ripgrep = {
-            module = "blink-ripgrep",
-            name = "Ripgrep",
-            -- the options below are optional, some default values are shown
-            ---@module "blink-ripgrep"
-            ---@type blink-ripgrep.Options
-            opts = {}
-          },
+          -- ripgrep = {
+          --   module = "blink-ripgrep",
+          --   name = "Ripgrep",
+          --   -- the options below are optional, some default values are shown
+          --   ---@module "blink-ripgrep"
+          --   ---@type blink-ripgrep.Options
+          --   opts = {}
+          -- },
         },
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'references', 'lazydev', 'emoji', 'avante', 'ripgrep' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'references', 'lazydev', 'emoji', 'avante' },
       },
 
       -- See the fuzzy documentation for more information

@@ -2,8 +2,9 @@ return {
   {
     "yetone/avante.nvim",
     keys = {
-      { "<leader>va", function() require("avante") end, desc = "Enable Avante" }
+      { "<leader>va", "<cmd>AvanteToggle<CR>", desc = "Toggle [A]vante" }
     },
+    cmd = { "AvanteToggle", "AvanteAsk" },
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     opts = {
       -- add any opts here
@@ -44,6 +45,14 @@ return {
       --   endpoint = "http://localhost:11434", -- The API endpoint for RAG service
       -- },
     },
+    config = function(_, opts)
+      require("avante").setup(opts)
+
+      require("which-key").add({
+        { "<leader>a",  group = "[A]vante" },
+        { "<leader>a_", hidden = true },
+      })
+    end,
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
@@ -53,7 +62,7 @@ return {
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
       "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",

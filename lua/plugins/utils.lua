@@ -6,8 +6,14 @@ return {
     'MeanderingProgrammer/render-markdown.nvim',
     opts = {
       file_types = { "markdown", "Avante", "quarto" },
-      heading = { position = 'inline' },
+      heading = { position = 'inline', enabled = false },
+      bullet = { enabled = false },
       html = { comment = { conceal = false } },
+      checkbox = {
+        unchecked = { icon = '✘ ' },
+        checked = { icon = '✔ ' },
+        custom = { todo = { rendered = '◯ ' } },
+    },
       anti_conceal = {
         enabled = true,
         -- Which elements to always show, ignoring anti conceal behavior. Values can either be booleans
@@ -19,8 +25,8 @@ return {
             code_background = true,
             sign = true,
         },
-        above = 1,
-        below = 1,
+        -- above = 1,
+        -- below = 1,
     },
     },
     ft = { "markdown", "Avante", "quarto" },
