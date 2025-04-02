@@ -1,6 +1,8 @@
 return {
   {
-    "yetone/avante.nvim",
+    -- "yetone/avante.nvim",
+    "Yeastiest/avantegeminitools",
+    name = "avante.nvim",
     keys = {
       { "<leader>va", "<cmd>AvanteToggle<CR>", desc = "Toggle [A]vante" }
     },
@@ -10,7 +12,7 @@ return {
       -- add any opts here
       -- for example
       provider = "gemini",
-      cursor_applying_provider = "gemini",
+      -- cursor_applying_provider = "gemini",
       gemini = {
         endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
         model = "gemini-2.0-flash",
@@ -32,7 +34,30 @@ return {
       },
       web_search_engine = {
         provider = "google", -- tavily, serpapi, searchapi, google or kagi
-      }
+      },
+      system_prompt = function()
+        local hub = require("mcphub").get_hub_instance()
+        local prompt = hub:get_active_servers_prompt()
+        return prompt
+      end,
+      -- The custom_tools type supports both a list and a function that returns a list. Using a function here prevents requiring mcphub before it's loaded
+      custom_tools = function()
+        return {
+          require("mcphub.extensions.avante").mcp_tool(),
+        }
+      end,
+      disabled_tools = {
+        "list_files",
+        "search_files",
+        "read_file",
+        "create_file",
+        "rename_file",
+        "delete_file",
+        "create_dir",
+        "rename_dir",
+        "delete_dir",
+        "bash",
+      },
       -- rag_service = {
       --   -- Enable only on windows
       --   enabled = function ()
@@ -54,9 +79,26 @@ return {
       })
     end,
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
+    build = "make BUILD_FROM_SOURCE=true",
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
+      {
+        "ravitemer/mcphub.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim", -- Required for Job and HTTP requests
+        },
+        -- comment the following line to ensure hub will be ready at the earliest
+        cmd = "MCPHub",                          -- lazy load by default
+        build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
+        -- uncomment this if you don't want mcp-hub to be available globally or can't use -g
+        -- build = "bundled_build.lua",  -- Use this and set use_bundled_binary = true in opts  (see Advanced configuration)
+        opts = {
+          extensions = {
+            avante = {
+            }
+          }
+        },
+      },
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",

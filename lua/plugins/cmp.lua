@@ -90,6 +90,9 @@ return {
           -- },
         },
         default = { 'lsp', 'path', 'snippets', 'buffer', 'references', 'lazydev', 'emoji', 'avante' },
+        -- per_filetype = {
+        --   typst = { 'lsp', 'path', 'snippets', 'references', 'emoji', 'avante' },
+        -- }
       },
 
       -- See the fuzzy documentation for more information

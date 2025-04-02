@@ -126,31 +126,71 @@ if vim.fn.has("nvim-0.11") == 1 then
 end
 
 -- Add diagnostic lines as per: https://www.reddit.com/r/neovim/comments/1jo9oe9/i_set_up_my_config_to_use_virtual_lines_for/?share_id=IMt06JIa2vchMo8uHtiiK&utm_content=2&utm_medium=ios_app&utm_name=iossmf&utm_source=share&utm_term=22
-local diag_config1 = {
-  virtual_text = {
-    enabled = true,
-    severity = {
-      max = vim.diagnostic.severity.WARN,
-    },
-  },
-  virtual_lines = {
-    enabled = true,
-    severity = {
-      min = vim.diagnostic.severity.ERROR,
-    },
-  },
-}
-local diag_config2 = {
+-- local diag_config1 = {
+--   virtual_text = {
+--     enabled = true,
+--     severity = {
+--       max = vim.diagnostic.severity.WARN,
+--     },
+--   },
+--   virtual_lines = {
+--     enabled = true,
+--     severity = {
+--       min = vim.diagnostic.severity.ERROR,
+--     },
+--   },
+-- }
+-- local diag_config2 = {
+--   virtual_text = true,
+--   virtual_lines = false,
+-- }
+-- vim.diagnostic.config(diag_config1)
+-- local diag_config_basic = false
+-- vim.keymap.set("n", "gK", function()
+--   diag_config_basic = not diag_config_basic
+--   if diag_config_basic then
+--     vim.diagnostic.config(diag_config2)
+--   else
+--     vim.diagnostic.config(diag_config1)
+--   end
+-- end, { desc = "Toggle diagnostic virtual_lines" })
+
+
+vim.diagnostic.config({
   virtual_text = true,
-  virtual_lines = false,
-}
-vim.diagnostic.config(diag_config1)
-local diag_config_basic = false
-vim.keymap.set("n", "gK", function()
-  diag_config_basic = not diag_config_basic
-  if diag_config_basic then
-    vim.diagnostic.config(diag_config2)
-  else
-    vim.diagnostic.config(diag_config1)
+  virtual_lines = { current_line = true },
+  underline = true,
+  update_in_insert = false
+})
+
+local og_virt_text
+local og_virt_line
+vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
+  group = vim.api.nvim_create_augroup('diagnostic_only_virtlines', {}),
+  callback = function()
+    if og_virt_line == nil then
+      og_virt_line = vim.diagnostic.config().virtual_lines
+    end
+
+    -- ignore if virtual_lines.current_line is disabled
+    if not (og_virt_line and og_virt_line.current_line) then
+      if og_virt_text then
+        vim.diagnostic.config({ virtual_text = og_virt_text })
+        og_virt_text = nil
+      end
+      return
+    end
+
+    if og_virt_text == nil then
+      og_virt_text = vim.diagnostic.config().virtual_text
+    end
+
+    local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+
+    if vim.tbl_isempty(vim.diagnostic.get(0, { lnum = lnum })) then
+      vim.diagnostic.config({ virtual_text = og_virt_text })
+    else
+      vim.diagnostic.config({ virtual_text = false })
+    end
   end
-end, { desc = "Toggle diagnostic virtual_lines" })
+})
