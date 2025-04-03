@@ -17,13 +17,14 @@ return {
         endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
         model = "gemini-2.0-flash",
         timeout = 30000, -- Timeout in milliseconds
-        temperature = 0,
+        temperature = 1.5,
         max_tokens = 8192,
       },
       vendors = {
         ["gemini-exp"] = {
           __inherited_from = "gemini",
           model = "gemini-2.5-pro-exp-03-25",
+          temperature = 1.2,
           max_tokens = 65536
         },
         ["ollama-qwen"] = {
@@ -42,9 +43,12 @@ return {
       end,
       -- The custom_tools type supports both a list and a function that returns a list. Using a function here prevents requiring mcphub before it's loaded
       custom_tools = function()
-        return {
-          require("mcphub.extensions.avante").mcp_tool(),
-        }
+        local mcp_tool = require("mcphub.extensions.avante").mcp_tool()
+
+        mcp_tool.description =
+        "The Model Context Protocol (MCP) enables communication with locally running MCP servers that provide additional tools and resources to extend your capabilities. This tool calls mcp tools and resources on the mcp servers using `use_mcp_tool` and `access_mcp_resource` actions respectively. The schema uses these arguments: 'action', 'server_name', 'uri', 'tool_name', 'arguments'. 'action', 'server_name' and 'uri' is ALWAYS REQUIRED for the 'mcp' tool."
+
+        return { mcp_tool }
       end,
       disabled_tools = {
         "list_files",
