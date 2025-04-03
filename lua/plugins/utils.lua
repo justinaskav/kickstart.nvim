@@ -13,7 +13,7 @@ return {
         unchecked = { icon = '✘ ' },
         checked = { icon = '✔ ' },
         custom = { todo = { rendered = '◯ ' } },
-    },
+      },
       anti_conceal = {
         enabled = true,
         -- Which elements to always show, ignoring anti conceal behavior. Values can either be booleans
@@ -22,12 +22,12 @@ return {
         --  head_icon, head_background, head_border, code_language, code_background, code_border
         --  dash, bullet, check_icon, check_scope, quote, table_border, callout, link, sign
         ignore = {
-            code_background = true,
-            sign = true,
+          code_background = true,
+          sign = true,
         },
         -- above = 1,
         -- below = 1,
-    },
+      },
     },
     ft = { "markdown", "Avante", "quarto" },
   },
@@ -199,8 +199,9 @@ return {
     ft = 'lua',
     opts = {
       library = {
+        -- See the configuration section for more details
         -- Load luvit types when the `vim.uv` word is found
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
       },
     },
   },

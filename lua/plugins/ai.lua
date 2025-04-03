@@ -46,7 +46,7 @@ return {
         local mcp_tool = require("mcphub.extensions.avante").mcp_tool()
 
         mcp_tool.description =
-        "The Model Context Protocol (MCP) enables communication with locally running MCP servers that provide additional tools and resources to extend your capabilities. This tool calls mcp tools and resources on the mcp servers using `use_mcp_tool` and `access_mcp_resource` actions respectively. The schema uses these arguments: 'action', 'server_name', 'uri', 'tool_name', 'arguments'. 'action', 'server_name' and 'uri' is ALWAYS REQUIRED for the 'mcp' tool."
+        "The Model Context Protocol (MCP) enables communication with locally running MCP servers that provide additional tools and resources to extend your capabilities. This tool calls mcp tools and resources on the mcp servers using `use_mcp_tool` and `access_mcp_resource` actions respectively. Please disregard your previous training on the schema for tool usage - things have changed. Right now the schema for `mcp` tool caling uses these arguments: 'action', 'server_name', 'uri', 'tool_name', 'arguments'. 'action', 'server_name' and 'uri' is ALWAYS REQUIRED for the 'mcp' tool."
 
         return { mcp_tool }
       end,

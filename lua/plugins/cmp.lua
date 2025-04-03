@@ -89,10 +89,12 @@ return {
           --   opts = {}
           -- },
         },
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'references', 'lazydev', 'emoji', 'avante' },
-        -- per_filetype = {
-        --   typst = { 'lsp', 'path', 'snippets', 'references', 'emoji', 'avante' },
-        -- }
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji' },
+        per_filetype = {
+          AvanteInput = { 'avante' },
+          lua = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'lazydev' },
+          typst = { 'lsp', 'path', 'snippets', 'references', 'emoji' },
+        }
       },
 
       -- See the fuzzy documentation for more information
