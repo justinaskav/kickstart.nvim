@@ -12,19 +12,19 @@ return {
       -- add any opts here
       -- for example
       provider = "gemini",
-      -- cursor_applying_provider = "gemini",
+      cursor_applying_provider = "gemini",
       gemini = {
         endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
         model = "gemini-2.0-flash",
         timeout = 30000, -- Timeout in milliseconds
-        temperature = 1.5,
+        temperature = 1.2,
         max_tokens = 8192,
       },
       vendors = {
         ["gemini-exp"] = {
           __inherited_from = "gemini",
           model = "gemini-2.5-pro-exp-03-25",
-          temperature = 1.2,
+          temperature = 1,
           max_tokens = 65536
         },
         ["ollama-qwen"] = {
