@@ -30,6 +30,9 @@ return {
     opts = {
       options = {
         -- theme = 'tokyonight',
+        disabled_filetypes = {
+          statusline = { "Avante", "AvanteSelectedFiles" },
+        },
         component_separators = '|',
         section_separators = '',
       },
