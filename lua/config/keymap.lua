@@ -1,6 +1,3 @@
--- [[ Basic Keymaps ]]
-
--- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -9,8 +6,8 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+-- vim.keymap.set('n', '[d', vim.diagnostic.get_prev, { desc = 'Go to previous diagnostic message' })
+-- vim.keymap.set('n', ']d', vim.diagnostic.get_next, { desc = 'Go to next diagnostic message' })
 -- vim.keymap.set('n', 'go', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 -- Move selected line / block of text in visual mode
@@ -24,7 +21,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll up and center' })
 -- For buffer navigation
 -- vim.keymap.set('n', '<TAB>', ':bnext<CR>', { desc = 'Move to next buffer' })
 -- vim.keymap.set('n', '<S-TAB>', ':bprevious<CR>', { desc = 'Move to previous buffer' })
-vim.keymap.set("n", "<leader>tt", ":split term://$SHELL<cr>", { desc = "New [T]erminal" })
+vim.keymap.set("n", "<leader>tt", ":bo 10split term://$SHELL<cr>", { desc = "New [T]erminal below" })
 vim.keymap.set("n", "<leader>tr", ":split term://R<cr>", { desc = "New [R] terminal" })
 vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
 vim.keymap.set("n", "<leader>ti", ":split term://ipython<cr>", { desc = "New [I]Python terminal" })

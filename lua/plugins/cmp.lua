@@ -8,9 +8,8 @@ return {
       -- 'rafamadriz/friendly-snippets',
       {
         "jmbuhr/cmp-pandoc-references",
-        'Kaiser-Yang/blink-cmp-avante',
-        branch = "adding-typst-support"
       },
+      -- 'Kaiser-Yang/blink-cmp-avante',
       "moyiz/blink-emoji.nvim",
       "mikavilpas/blink-ripgrep.nvim"
     },
@@ -69,17 +68,17 @@ return {
           emoji = {
             module = "blink-emoji",
             name = "Emoji",
-            score_offset = -15,        -- Tune by preference
-            max_items = 5,    -- Max number of emojis to show
+            score_offset = -15,       -- Tune by preference
+            max_items = 5,            -- Max number of emojis to show
             opts = { insert = true }, -- Insert emoji (default) or complete its name
           },
-          avante = {
-            module = 'blink-cmp-avante',
-            name = 'Avante',
-            opts = {
-              -- options for blink-cmp-avante
-            }
-          },
+          -- avante = {
+          --   module = 'blink-cmp-avante',
+          --   name = 'Avante',
+          --   opts = {
+          --     -- options for blink-cmp-avante
+          --   }
+          -- },
           -- ripgrep = {
           --   module = "blink-ripgrep",
           --   name = "Ripgrep",
@@ -91,7 +90,7 @@ return {
         },
         default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji' },
         per_filetype = {
-          AvanteInput = { 'avante' },
+          -- AvanteInput = { 'avante' },
           lua = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'lazydev' },
           typst = { 'lsp', 'path', 'snippets', 'references', 'emoji' },
         }

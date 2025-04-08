@@ -1,8 +1,9 @@
 return {
   {
-    -- "yetone/avante.nvim",
-    "Yeastiest/avantegeminitools",
-    name = "avante.nvim",
+    "yetone/avante.nvim",
+    -- "Yeastiest/avantegeminitools",
+    -- name = "avante.nvim",
+    -- lazy = false,
     keys = {
       { "<leader>va", "<cmd>AvanteToggle<CR>", desc = "Toggle [A]vante" }
     },
@@ -17,21 +18,31 @@ return {
         endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
         model = "gemini-2.0-flash",
         timeout = 30000, -- Timeout in milliseconds
-        temperature = 1.2,
+        temperature = 1,
         max_tokens = 8192,
       },
       vendors = {
         ["gemini-exp"] = {
           __inherited_from = "gemini",
           model = "gemini-2.5-pro-exp-03-25",
-          temperature = 1,
+          temperature = 0.8,
           max_tokens = 65536
         },
         ["ollama-qwen"] = {
           __inherited_from = "ollama",
           model = "qwen2.5-coder:14b",
           -- max_tokens = 32768
-        }
+        },
+        ["copilot-claude-3.5"] = {
+          __inherited_from = "copilot",
+          model = "claude-3.5-sonnet",
+          max_tokens = 32768
+        },
+        ["copilot-claude-3.7"] = {
+          __inherited_from = "copilot",
+          model = "claude-3.7-sonnet",
+          max_tokens = 32768
+        },
       },
       web_search_engine = {
         provider = "google", -- tavily, serpapi, searchapi, google or kagi
@@ -83,7 +94,8 @@ return {
       })
     end,
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make BUILD_FROM_SOURCE=true",
+    build = "make",
+    -- build = "make BUILD_FROM_SOURCE=true",
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
       {
@@ -99,7 +111,8 @@ return {
         opts = {
           extensions = {
             avante = {
-            }
+              make_slash_commands = true, -- make /slash commands from MCP server prompts
+            },
           }
         },
       },
@@ -110,52 +123,53 @@ return {
       "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
       "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
       {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
+        "zbirenbaum/copilot.lua",
         opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
+          panel = { enabled = false },
+          suggestion = {
+            enabled = true,
+            auto_trigger = true,
+            debounce = 75,
+            keymap = {
+              accept = "<C-l>",
+              accept_word = false,
+              accept_line = false,
+              prev = false,
+              next = "<C-]>",
+              dismiss = false,
             },
-            -- required for Windows users
-            use_absolute_path = true,
           },
-        },
+          filetypes = {
+            yaml = true,
+            markdown = true,
+            help = false,
+            gitcommit = true,
+            gitrebase = false,
+            hgcommit = false,
+            svn = false,
+            cvs = false,
+            ["."] = false,
+          },
+        }
       },
-    }
-  },
-  {
-    "zbirenbaum/copilot.lua",
-    opts = {
-      panel = { enabled = false },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        debounce = 75,
-        keymap = {
-          accept = "<C-l>",
-          accept_word = false,
-          accept_line = false,
-          prev = false,
-          next = "<C-]>",
-          dismiss = false,
-        },
-      },
-      filetypes = {
-        yaml = true,
-        markdown = true,
-        help = false,
-        gitcommit = true,
-        gitrebase = false,
-        hgcommit = false,
-        svn = false,
-        cvs = false,
-        ["."] = false,
-      },
+
+      -- {
+      --   -- support for image pasting
+      --   "HakonHarnes/img-clip.nvim",
+      --   event = "VeryLazy",
+      --   opts = {
+      --     -- recommended settings
+      --     default = {
+      --       embed_image_as_base64 = false,
+      --       prompt_for_file_name = false,
+      --       drag_and_drop = {
+      --         insert_mode = true,
+      --       },
+      --       -- required for Windows users
+      --       use_absolute_path = true,
+      --     },
+      --   },
+      -- },
     }
   },
 }
