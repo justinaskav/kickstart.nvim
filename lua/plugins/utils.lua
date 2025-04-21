@@ -59,14 +59,14 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false },
   },
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
-    config = true
-  },
+  -- {
+  --   -- Add indentation guides even on blank lines
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   -- Enable `lukas-reineke/indent-blankline.nvim`
+  --   -- See `:help ibl`
+  --   main = 'ibl',
+  --   config = true
+  -- },
   {
     -- UndoTree shows the undo history and allows you to switch to a previous state
     'mbbill/undotree',
@@ -204,9 +204,17 @@ return {
     opts = {
       dependencies_bin = { ['tinymist'] = 'tinymist' }
     }, -- lazy.nvim will implicitly calls `setup {}`
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      bigfile = { enabled = true },
+      dashboard = { enabled = true },
+      -- indent = { enabled = true },
+      quickfile = { enabled = true },
+    },
   }
-  -- {
-  --   "luckasRanarison/tailwind-tools.nvim",
-  --   opts = {} -- your configuration
-  -- }
 }

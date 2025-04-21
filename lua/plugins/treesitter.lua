@@ -92,10 +92,10 @@ return {
       end, 0)
     end
   },
-  -- This shows the function (context) above
-  -- "nvim-treesitter/nvim-treesitter-context",
+  -- Comment strings in multilanguage files (e.g. vue)
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
+    ft = { 'vue' },
     config = function()
       require('ts_context_commentstring').setup {
         enable_autocmd = false,

@@ -1,5 +1,35 @@
 return {
   {
+    "zbirenbaum/copilot.lua",
+    opts = {
+      panel = { enabled = false },
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        debounce = 75,
+        keymap = {
+          accept = "<C-l>",
+          accept_word = false,
+          accept_line = false,
+          prev = false,
+          next = "<C-]>",
+          dismiss = false,
+        },
+      },
+      filetypes = {
+        yaml = true,
+        markdown = true,
+        help = false,
+        gitcommit = true,
+        gitrebase = false,
+        hgcommit = false,
+        svn = false,
+        cvs = false,
+        ["."] = false,
+      },
+    }
+  },
+  {
     "yetone/avante.nvim",
     -- "Yeastiest/avantegeminitools",
     -- name = "avante.nvim",
@@ -109,6 +139,7 @@ return {
         -- uncomment this if you don't want mcp-hub to be available globally or can't use -g
         -- build = "bundled_build.lua",  -- Use this and set use_bundled_binary = true in opts  (see Advanced configuration)
         opts = {
+          config = vim.fn.expand("~/.config/mcp/servers.json"),
           extensions = {
             avante = {
               make_slash_commands = true, -- make /slash commands from MCP server prompts
@@ -122,36 +153,6 @@ return {
       --- The below dependencies are optional,
       "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
       "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
-      {
-        "zbirenbaum/copilot.lua",
-        opts = {
-          panel = { enabled = false },
-          suggestion = {
-            enabled = true,
-            auto_trigger = true,
-            debounce = 75,
-            keymap = {
-              accept = "<C-l>",
-              accept_word = false,
-              accept_line = false,
-              prev = false,
-              next = "<C-]>",
-              dismiss = false,
-            },
-          },
-          filetypes = {
-            yaml = true,
-            markdown = true,
-            help = false,
-            gitcommit = true,
-            gitrebase = false,
-            hgcommit = false,
-            svn = false,
-            cvs = false,
-            ["."] = false,
-          },
-        }
-      },
 
       -- {
       --   -- support for image pasting

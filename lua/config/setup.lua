@@ -1,9 +1,8 @@
--- disable netrw at the very start of your init.lua
+-- Netrw configuration options (currently disabled)
+-- Uncomment if you want to disable netrw completely
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
-
--- remove netrw banner for cleaner looking
--- vim.g.netrw_banner = 0
+-- vim.g.netrw_banner = 0 -- remove netrw banner for cleaner UI
 
 vim.g.mapleader = vim.keycode("<space>")
 vim.g.maplocalleader = vim.keycode("<cr>")
@@ -27,23 +26,22 @@ vim.o.showmode = false
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
-vim.o.hlsearch = true
-vim.o.incsearch = true
+vim.opt.hlsearch = true    -- highlight search results
+vim.opt.incsearch = true   -- show search results as you type
 
-vim.o.cursorline = true -- enable cursor line
+vim.opt.cursorline = true  -- enable cursor line highlighting
 
 -- Make line numbers and relative numbering default
 vim.o.number = true
 vim.o.relativenumber = true
 
--- Indent
-vim.o.smartindent = true -- auto-indenting when starting a new line
-vim.o.shiftround = true  -- round indent to multiple of 'shiftwidth'
-vim.o.shiftwidth = 0     -- 0 to follow the 'tabstop' value
-vim.o.tabstop = 4        -- tab width
-
-vim.o.expandtab = true
-vim.bo.softtabstop = 2
+-- Indentation settings
+vim.opt.smartindent = true  -- auto-indenting when starting a new line
+vim.opt.shiftround = true   -- round indent to multiple of 'shiftwidth'
+vim.opt.expandtab = true    -- use spaces instead of tabs
+vim.opt.tabstop = 4         -- width of actual tab character
+vim.opt.shiftwidth = 0      -- 0 means use tabstop value
+vim.opt.softtabstop = 2     -- number of spaces inserted per tab
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -70,7 +68,13 @@ vim.o.updatetime = 200 -- save swap file with 200ms debouncing
 vim.o.timeoutlen = 250
 
 -- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+vim.opt.termguicolors = true
+
+-- Reduce command line messages
+vim.opt.shortmess:append("c")
+
+-- Enable mouse support in all modes
+vim.opt.mouse = "a"
 
 vim.opt.listchars = { -- NOTE: using `vim.opt` instead of `vim.o` to pass rich object
   tab = "▏ ",

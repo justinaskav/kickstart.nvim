@@ -156,14 +156,18 @@ return {
         end
       end
 
+      local function print_terminal_id()
+        local job_id = vim.b.terminal_job_id
+        vim.print('job_id: ' .. job_id)
+      end
+
       vim.b.slime_cell_delimiter = "# %%"
 
       vim.keymap.set('n', "<C-CR>", send_cell, { desc = "Send cell to Slime terminal" })
       vim.keymap.set('n', "<S-CR>", "<Plug>SlimeRegionSend", { desc = "Send region to Slime terminal" })
-      -- vim.keymap.set("x", "<S-CR>", "<Plug>SlimeRegionSend", { remap = true, silent = false })
       vim.keymap.set("v", "<S-CR>", "<Plug>SlimeRegionSend", { desc = 'Slime: Send selected region to terminal' })
 
-      vim.keymap.set("n", "<leader>tm", "<Plug>SlimeConfig", { desc = "[M]ark terminal to use with Slime" })
+      vim.keymap.set("n", "<leader>ts", print_terminal_id, { desc = "[S]how terminal ID to set with Slime Config" })
     end,
   },
 

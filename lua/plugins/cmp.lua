@@ -9,6 +9,7 @@ return {
       {
         "jmbuhr/cmp-pandoc-references",
       },
+{ 'L3MON4D3/LuaSnip', version = 'v2.*' },
       -- 'Kaiser-Yang/blink-cmp-avante',
       "moyiz/blink-emoji.nvim",
       "mikavilpas/blink-ripgrep.nvim"
@@ -57,6 +58,7 @@ return {
 
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
+      snippets = { preset = 'luasnip' },
       sources = {
         providers = {
           references = { name = "pandoc_references", module = "cmp-pandoc-references.blink", },
