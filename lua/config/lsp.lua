@@ -100,9 +100,10 @@ local lsps = {
 	"json-lsp",
 	"lua-language-server",
 	"marksman",
+	-- "nextflow-language-server",
+	-- "python-lsp-server",
 	"pyright",
 	"r-languageserver",
-	"ruff",
 	"tailwindcss-language-server",
 	"tinymist",
 	"typescript-language-server",
@@ -116,5 +117,9 @@ local formatters = {
 
 require('mason-tool-installer').setup { ensure_installed = merge_tables(lsps, formatters) }
 
+local manually_installed = {
+	"nextflow-language-server",
+}
+
 -- Enable each language server by filename under the lsp/ folder
-vim.lsp.enable(lsps)
+vim.lsp.enable(merge_tables(lsps, manually_installed))

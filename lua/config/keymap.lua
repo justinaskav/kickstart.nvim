@@ -23,6 +23,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll up and center' })
 -- vim.keymap.set('n', '<S-TAB>', ':bprevious<CR>', { desc = 'Move to previous buffer' })
 vim.keymap.set("n", "<leader>tt", ":bo 10split term://$SHELL<cr>", { desc = "New [T]erminal below" })
 vim.keymap.set("n", "<leader>tr", ":split term://R<cr>", { desc = "New [R] terminal" })
+vim.keymap.set("n", "<leader>tR", ":split term://radian<cr>", { desc = "New [R]adian terminal" })
 vim.keymap.set("n", "<leader>tp", ":split term://python<cr>", { desc = "New [P]ython terminal" })
 vim.keymap.set("n", "<leader>ti", ":split term://ipython<cr>", { desc = "New [I]Python terminal" })
 vim.keymap.set("n", "<leader>tv", ":vsplit term://ipython<cr> <C-w>L :vert res 80<cr>",

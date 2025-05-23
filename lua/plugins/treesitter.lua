@@ -25,13 +25,22 @@ return {
         filetype = "blade",
       }
 
+      -- parser_config.nextflow = {
+      --   install_info = {
+      --     url = "https://github.com/matthuska/tree-sitter-nextflow",
+      --     files = { "src/parser.c" },
+      --     branch = "main",
+      --   },
+      --   filetype = "nextflow",
+      -- }
+
       -- See `:help nvim-treesitter`
       -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
       vim.defer_fn(function()
         ---@diagnostic disable-next-line missing-fields
         require('nvim-treesitter.configs').setup {
           -- Add languages to be installed here that you want installed for treesitter
-          ensure_installed = { 'blade', 'php_only', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'html', 'css', 'astro', 'php', 'phpdoc', 'csv', 'tsv', 'mermaid', 'typst', 'rust' },
+          ensure_installed = { 'blade', 'groovy', 'php_only', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'vue', 'json', 'r', 'markdown', 'markdown_inline', 'yaml', 'query', 'html', 'css', 'astro', 'php', 'phpdoc', 'csv', 'tsv', 'mermaid', 'typst', 'rust' },
           auto_install = false,
           highlight = { enable = true, additional_vim_regex_highlighting = false },
           indent = { enable = true },

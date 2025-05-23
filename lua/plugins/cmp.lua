@@ -1,5 +1,15 @@
 return {
   -- Autocompletion
+  -- add blink.compat
+  {
+    'saghen/blink.compat',
+    -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+    version = '*',
+    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+    lazy = true,
+    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+    opts = {},
+  },
   {
     'saghen/blink.cmp',
     event = { "UIEnter" },
@@ -9,7 +19,7 @@ return {
       {
         "jmbuhr/cmp-pandoc-references",
       },
-{ 'L3MON4D3/LuaSnip', version = 'v2.*' },
+      { 'L3MON4D3/LuaSnip', version = 'v2.*' },
       -- 'Kaiser-Yang/blink-cmp-avante',
       "moyiz/blink-emoji.nvim",
       "mikavilpas/blink-ripgrep.nvim"
@@ -74,25 +84,28 @@ return {
             max_items = 5,            -- Max number of emojis to show
             opts = { insert = true }, -- Insert emoji (default) or complete its name
           },
-          -- avante = {
-          --   module = 'blink-cmp-avante',
-          --   name = 'Avante',
-          --   opts = {
-          --     -- options for blink-cmp-avante
-          --   }
-          -- },
-          -- ripgrep = {
-          --   module = "blink-ripgrep",
-          --   name = "Ripgrep",
-          --   -- the options below are optional, some default values are shown
-          --   ---@module "blink-ripgrep"
-          --   ---@type blink-ripgrep.Options
-          --   opts = {}
-          -- },
+          avante_commands = {
+            name = "avante_commands",
+            module = "blink.compat.source",
+            score_offset = 90, -- show at a higher priority than lsp
+            opts = {},
+          },
+          avante_files = {
+            name = "avante_files",
+            module = "blink.compat.source",
+            score_offset = 100, -- show at a higher priority than lsp
+            opts = {},
+          },
+          avante_mentions = {
+            name = "avante_mentions",
+            module = "blink.compat.source",
+            score_offset = 1000, -- show at a higher priority than lsp
+            opts = {},
+          }
         },
         default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji' },
         per_filetype = {
-          -- AvanteInput = { 'avante' },
+          AvanteInput = { 'avante_commands', 'avante_files', 'avante_mentions' },
           lua = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'lazydev' },
           typst = { 'lsp', 'path', 'snippets', 'references', 'emoji' },
         }
