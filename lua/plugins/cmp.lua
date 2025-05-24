@@ -101,6 +101,13 @@ return {
             module = "blink.compat.source",
             score_offset = 1000, -- show at a higher priority than lsp
             opts = {},
+          },
+          path = {
+            opts = {
+              get_cwd = function(_)
+                return vim.fn.getcwd()
+              end,
+            },
           }
         },
         default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji' },
